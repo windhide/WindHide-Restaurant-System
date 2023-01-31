@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.windhide.abonement.mapper.ShoppingCartMapper">
+
+    <resultMap id="BaseResultMap" type="com.windhide.abonement.pojo.ShoppingCart">
+            <id property="shopping_cart_id" column="shopping_cart_id" jdbcType="INTEGER"/>
+            <result property="shopping_cart_data_json" column="shopping_cart_data_json" jdbcType="OTHER"/>
+            <result property="user_id" column="user_id" jdbcType="INTEGER"/>
+            <result property="create_time" column="create_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        shopping_cart_id,shopping_cart_data_json,user_id,
+        create_time
+    </sql>
+</mapper>

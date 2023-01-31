@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.windhide.employee.mapper.GoodsTypeMapper">
+
+    <resultMap id="BaseResultMap" type="com.windhide.employee.pojo.GoodsType">
+            <id property="goods_type_id" column="goods_type_id" jdbcType="INTEGER"/>
+            <result property="goods_type_name" column="goods_type_name" jdbcType="VARCHAR"/>
+            <result property="create_time" column="create_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        goods_type_id,goods_type_name,create_time
+    </sql>
+</mapper>

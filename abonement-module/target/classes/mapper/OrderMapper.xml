@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.windhide.abonement.mapper.OrderMapper">
+
+    <resultMap id="BaseResultMap" type="com.windhide.abonement.pojo.Order">
+            <id property="order_id" column="order_id" jdbcType="INTEGER"/>
+            <result property="order_data_json" column="order_data_json" jdbcType="OTHER"/>
+            <result property="order_price" column="order_price" jdbcType="DECIMAL"/>
+            <result property="user_id" column="user_id" jdbcType="INTEGER"/>
+            <result property="create_time" column="create_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        order_id,order_data_json,order_price,
+        user_id,create_time
+    </sql>
+</mapper>

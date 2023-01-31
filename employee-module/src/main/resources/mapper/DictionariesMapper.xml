@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.windhide.employee.mapper.DictionariesMapper">
+
+    <resultMap id="BaseResultMap" type="com.windhide.employee.pojo.Dictionaries">
+            <id property="dictionaries_id" column="dictionaries_id" jdbcType="INTEGER"/>
+            <result property="dictionaries_name" column="dictionaries_name" jdbcType="VARCHAR"/>
+            <result property="dictionaries_varName" column="dictionaries_varName" jdbcType="VARCHAR"/>
+            <result property="variable" column="variable" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        dictionaries_id,dictionaries_name,dictionaries_varName,
+        variable
+    </sql>
+</mapper>

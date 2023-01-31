@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.windhide.employee.mapper.IncomeStateMapper">
+
+    <resultMap id="BaseResultMap" type="com.windhide.employee.pojo.IncomeState">
+            <id property="income_state_id" column="income_state_id" jdbcType="INTEGER"/>
+            <result property="income_state_year" column="income_state_year" jdbcType="INTEGER"/>
+            <result property="income_state_month" column="income_state_month" jdbcType="INTEGER"/>
+            <result property="income_state_money" column="income_state_money" jdbcType="DECIMAL"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        income_state_id,income_state_year,income_state_month,
+        income_state_money
+    </sql>
+</mapper>

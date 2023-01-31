@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.windhide.abonement.mapper.UserMapper">
+
+    <resultMap id="BaseResultMap" type="com.windhide.abonement.pojo.User">
+            <id property="user_id" column="user_id" jdbcType="INTEGER"/>
+            <result property="user_nickname" column="user_nickname" jdbcType="VARCHAR"/>
+            <result property="user_image" column="user_image" jdbcType="VARCHAR"/>
+            <result property="user_phone" column="user_phone" jdbcType="VARCHAR"/>
+            <result property="user_gender" column="user_gender" jdbcType="VARCHAR"/>
+            <result property="user_name" column="user_name" jdbcType="VARCHAR"/>
+            <result property="user_password" column="user_password" jdbcType="VARCHAR"/>
+            <result property="user_level_id" column="user_level_id" jdbcType="INTEGER"/>
+            <result property="create_time" column="create_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        user_id,user_nickname,user_image,
+        user_phone,user_gender,user_name,
+        user_password,user_level_id,create_time
+    </sql>
+</mapper>

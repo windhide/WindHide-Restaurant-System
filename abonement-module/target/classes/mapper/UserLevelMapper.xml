@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.windhide.abonement.mapper.UserLevelMapper">
+
+    <resultMap id="BaseResultMap" type="com.windhide.abonement.pojo.UserLevel">
+            <id property="user_level_id" column="user_level_id" jdbcType="INTEGER"/>
+            <result property="user_level_name" column="user_level_name" jdbcType="VARCHAR"/>
+            <result property="create_time" column="create_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        user_level_id,user_level_name,create_time
+    </sql>
+</mapper>
