@@ -5,9 +5,9 @@
 <mapper namespace="com.windhide.abonement.mapper.UserLevelMapper">
 
     <resultMap id="BaseResultMap" type="com.windhide.abonement.pojo.UserLevel">
-            <id property="user_level_id" column="user_level_id" jdbcType="INTEGER"/>
-            <result property="user_level_name" column="user_level_name" jdbcType="VARCHAR"/>
-            <result property="create_time" column="create_time" jdbcType="TIMESTAMP"/>
+            <id property="userLevelId" column="user_level_id" jdbcType="INTEGER"/>
+            <result property="userLevelName" column="user_level_name" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <sql id="Base_Column_List">

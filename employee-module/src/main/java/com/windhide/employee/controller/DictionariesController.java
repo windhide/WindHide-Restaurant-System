@@ -2,7 +2,7 @@ package com.windhide.employee.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.windhide.employee.pojo.Dictionaries;
-import com.windhide.employee.service.impl.DictionariesServiceImpl;
+import com.windhide.employee.service.DictionariesService;
 import com.windhide.restaurant.pojo.T;
 import com.windhide.restaurant.util.StateCode;
 import com.windhide.restaurant.util.TimeUtil;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class DictionariesController {
 
     @Autowired
-    DictionariesServiceImpl aictionariesService;
+    DictionariesService aictionariesService;
 
     @RequestMapping("select")
     public T selectAllDictionaries(@RequestBody int pageNum, @RequestBody int pageSize){

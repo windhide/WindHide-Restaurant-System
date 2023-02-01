@@ -52,6 +52,9 @@ public class Employee implements Serializable {
      */
     private Integer employeeTypeId;
 
+    @TableField(exist = false)
+    private EmployeeType employeeType;
+
     /**
      * 创建时间
      */

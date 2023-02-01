@@ -1,9 +1,8 @@
 package com.windhide.abonement.controller;
 
 import com.github.pagehelper.PageHelper;
-import com.windhide.abonement.pojo.User;
 import com.windhide.abonement.pojo.UserLevel;
-import com.windhide.abonement.service.impl.UserLevelServiceImpl;
+import com.windhide.abonement.service.UserLevelService;
 import com.windhide.restaurant.pojo.T;
 import com.windhide.restaurant.util.StateCode;
 import com.windhide.restaurant.util.TimeUtil;
@@ -18,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserLevelController {
 
     @Autowired
-    UserLevelServiceImpl userLevelService;
+    UserLevelService userLevelService;
 
     @RequestMapping("select")
     public T selectAllUserLevel(@RequestBody int pageNum,@RequestBody int pageSize){

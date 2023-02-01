@@ -5,9 +5,9 @@
 <mapper namespace="com.windhide.employee.mapper.DictionariesMapper">
 
     <resultMap id="BaseResultMap" type="com.windhide.employee.pojo.Dictionaries">
-            <id property="dictionaries_id" column="dictionaries_id" jdbcType="INTEGER"/>
-            <result property="dictionaries_name" column="dictionaries_name" jdbcType="VARCHAR"/>
-            <result property="dictionaries_varName" column="dictionaries_varName" jdbcType="VARCHAR"/>
+            <id property="dictionariesId" column="dictionaries_id" jdbcType="INTEGER"/>
+            <result property="dictionariesName" column="dictionaries_name" jdbcType="VARCHAR"/>
+            <result property="dictionariesVarName" column="dictionaries_varName" jdbcType="VARCHAR"/>
             <result property="variable" column="variable" jdbcType="INTEGER"/>
     </resultMap>
 

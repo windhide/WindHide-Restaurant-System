@@ -2,7 +2,7 @@ package com.windhide.employee.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.windhide.employee.pojo.Goods;
-import com.windhide.employee.service.impl.GoodsServiceImpl;
+import com.windhide.employee.service.GoodsService;
 import com.windhide.restaurant.pojo.T;
 import com.windhide.restaurant.util.StateCode;
 import com.windhide.restaurant.util.TimeUtil;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class GoodsController {
 
     @Autowired
-    GoodsServiceImpl goodsService;
+    GoodsService goodsService;
 
     @RequestMapping("select")
     public T selectAllGoods(@RequestBody int pageNum, @RequestBody int pageSize){

@@ -5,10 +5,10 @@
 <mapper namespace="com.windhide.employee.mapper.IncomeStateMapper">
 
     <resultMap id="BaseResultMap" type="com.windhide.employee.pojo.IncomeState">
-            <id property="income_state_id" column="income_state_id" jdbcType="INTEGER"/>
-            <result property="income_state_year" column="income_state_year" jdbcType="INTEGER"/>
-            <result property="income_state_month" column="income_state_month" jdbcType="INTEGER"/>
-            <result property="income_state_money" column="income_state_money" jdbcType="DECIMAL"/>
+            <id property="incomeStateId" column="income_state_id" jdbcType="INTEGER"/>
+            <result property="incomeStateYear" column="income_state_year" jdbcType="INTEGER"/>
+            <result property="incomeStateMonth" column="income_state_month" jdbcType="INTEGER"/>
+            <result property="incomeStateMoney" column="income_state_money" jdbcType="DECIMAL"/>
     </resultMap>
 
     <sql id="Base_Column_List">

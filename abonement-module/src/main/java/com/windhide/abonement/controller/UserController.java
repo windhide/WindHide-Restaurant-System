@@ -1,9 +1,8 @@
 package com.windhide.abonement.controller;
 
 import com.github.pagehelper.PageHelper;
-import com.windhide.abonement.pojo.ShoppingCart;
 import com.windhide.abonement.pojo.User;
-import com.windhide.abonement.service.impl.UserServiceImpl;
+import com.windhide.abonement.service.UserService;
 import com.windhide.restaurant.pojo.T;
 import com.windhide.restaurant.util.StateCode;
 import com.windhide.restaurant.util.TimeUtil;
@@ -13,14 +12,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("user")
 public class UserController {
 
     @Autowired
-    UserServiceImpl userService;
+    UserService userService;
 
     @RequestMapping("select")
     public T selectAllUser(@RequestBody int pageNum,@RequestBody int pageSize){

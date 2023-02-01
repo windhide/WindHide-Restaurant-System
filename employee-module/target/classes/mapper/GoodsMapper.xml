@@ -5,13 +5,13 @@
 <mapper namespace="com.windhide.employee.mapper.GoodsMapper">
 
     <resultMap id="BaseResultMap" type="com.windhide.employee.pojo.Goods">
-            <id property="goods_id" column="goods_id" jdbcType="INTEGER"/>
-            <result property="goods_name" column="goods_name" jdbcType="VARCHAR"/>
-            <result property="goods_image" column="goods_image" jdbcType="VARCHAR"/>
-            <result property="goods_price" column="goods_price" jdbcType="DECIMAL"/>
-            <result property="goods_discount" column="goods_discount" jdbcType="DECIMAL"/>
-            <result property="goods_type_id" column="goods_type_id" jdbcType="INTEGER"/>
-            <result property="create_time" column="create_time" jdbcType="TIMESTAMP"/>
+            <id property="goodsId" column="goods_id" jdbcType="INTEGER"/>
+            <result property="goodsName" column="goods_name" jdbcType="VARCHAR"/>
+            <result property="goodsImage" column="goods_image" jdbcType="VARCHAR"/>
+            <result property="goodsPrice" column="goods_price" jdbcType="DECIMAL"/>
+            <result property="goodsDiscount" column="goods_discount" jdbcType="DECIMAL"/>
+            <result property="goodsTypeId" column="goods_type_id" jdbcType="INTEGER"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <sql id="Base_Column_List">

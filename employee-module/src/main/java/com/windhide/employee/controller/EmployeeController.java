@@ -2,7 +2,7 @@ package com.windhide.employee.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.windhide.employee.pojo.Employee;
-import com.windhide.employee.service.impl.EmployeeServiceImpl;
+import com.windhide.employee.service.EmployeeService;
 import com.windhide.restaurant.pojo.T;
 import com.windhide.restaurant.util.StateCode;
 import com.windhide.restaurant.util.TimeUtil;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class EmployeeController {
 
     @Autowired
-    EmployeeServiceImpl employeeService;
+    EmployeeService employeeService;
 
     @RequestMapping("select")
     public T selectAllEmployee(@RequestBody int pageNum, @RequestBody int pageSize){

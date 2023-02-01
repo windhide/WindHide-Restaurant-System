@@ -2,7 +2,7 @@ package com.windhide.employee.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.windhide.employee.pojo.IncomeState;
-import com.windhide.employee.service.impl.IncomeStateServiceImpl;
+import com.windhide.employee.service.IncomeStateService;
 import com.windhide.restaurant.pojo.T;
 import com.windhide.restaurant.util.StateCode;
 import com.windhide.restaurant.util.TimeUtil;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class IncomeStateController {
 
     @Autowired
-    IncomeStateServiceImpl incomeStateService;
+    IncomeStateService incomeStateService;
 
     @RequestMapping("select")
     public T selectAllIncomeState(@RequestBody int pageNum, @RequestBody int pageSize){

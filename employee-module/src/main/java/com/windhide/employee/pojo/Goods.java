@@ -47,6 +47,9 @@ public class Goods implements Serializable {
      */
     private Integer goodsTypeId;
 
+    @TableField(exist = false)
+    private GoodsType goodsType;
+
     /**
      * 创建时间
      */

@@ -35,6 +35,7 @@ public class Order implements Serializable {
     /**
      * 用户id
      */
+    private Integer userId;
     @TableField(exist = false)
     private User user;
     /**

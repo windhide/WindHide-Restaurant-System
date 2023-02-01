@@ -29,6 +29,9 @@ public class ShoppingCart implements Serializable {
     /**
      * 用户id
      */
+    private Integer userId;
+
+    @TableField(exist = false)
     private User user;
 
     /**

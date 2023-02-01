@@ -2,7 +2,7 @@ package com.windhide.abonement.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.windhide.abonement.pojo.Order;
-import com.windhide.abonement.service.impl.OrderServiceImpl;
+import com.windhide.abonement.service.OrderService;
 import com.windhide.restaurant.pojo.T;
 import com.windhide.restaurant.util.StateCode;
 import com.windhide.restaurant.util.TimeUtil;
@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 public class OrderController {
 
     @Autowired
-    OrderServiceImpl orderService;
+    OrderService orderService;
 
     @RequestMapping("select")
     public T selectAllOrder(@RequestBody int pageNum,@RequestBody int pageSize){

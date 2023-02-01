@@ -5,9 +5,9 @@
 <mapper namespace="com.windhide.employee.mapper.GoodsTypeMapper">
 
     <resultMap id="BaseResultMap" type="com.windhide.employee.pojo.GoodsType">
-            <id property="goods_type_id" column="goods_type_id" jdbcType="INTEGER"/>
-            <result property="goods_type_name" column="goods_type_name" jdbcType="VARCHAR"/>
-            <result property="create_time" column="create_time" jdbcType="TIMESTAMP"/>
+            <id property="goodsTypeId" column="goods_type_id" jdbcType="INTEGER"/>
+            <result property="goodsTypeName" column="goods_type_name" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <sql id="Base_Column_List">

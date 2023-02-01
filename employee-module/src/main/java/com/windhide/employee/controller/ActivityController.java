@@ -2,7 +2,7 @@ package com.windhide.employee.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.windhide.employee.pojo.Activity;
-import com.windhide.employee.service.impl.ActivityServiceImpl;
+import com.windhide.employee.service.ActivityService;
 import com.windhide.restaurant.pojo.T;
 import com.windhide.restaurant.util.StateCode;
 import com.windhide.restaurant.util.TimeUtil;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ActivityController {
 
     @Autowired
-    ActivityServiceImpl activityService;
+    ActivityService activityService;
 
     @RequestMapping("select")
     public T selectAllActivity(@RequestBody int pageNum, @RequestBody int pageSize){

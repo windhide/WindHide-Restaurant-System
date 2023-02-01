@@ -3,14 +3,13 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.windhide.employee.mapper.ActivityMapper">
-
     <resultMap id="BaseResultMap" type="com.windhide.employee.pojo.Activity">
-            <id property="activity_id" column="activity_id" jdbcType="INTEGER"/>
-            <result property="activity_name" column="activity_name" jdbcType="VARCHAR"/>
-            <result property="activity_discount" column="activity_discount" jdbcType="DECIMAL"/>
-            <result property="activity_start_time" column="activity_start_time" jdbcType="TIMESTAMP"/>
-            <result property="activity_end_time" column="activity_end_time" jdbcType="TIMESTAMP"/>
-            <result property="create_time" column="create_time" jdbcType="TIMESTAMP"/>
+            <id property="activityId" column="activity_id" jdbcType="INTEGER"/>
+            <result property="activityName" column="activity_name" jdbcType="VARCHAR"/>
+            <result property="activityDiscount" column="activity_discount" jdbcType="DECIMAL"/>
+            <result property="activityStartTime" column="activity_start_time" jdbcType="TIMESTAMP"/>
+            <result property="activityEndTime" column="activity_end_time" jdbcType="TIMESTAMP"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <sql id="Base_Column_List">

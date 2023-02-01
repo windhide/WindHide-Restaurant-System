@@ -55,6 +55,8 @@ public class User implements Serializable {
      * 用户等级id
      */
     private Integer userLevelId;
+    @TableField(exist = false)
+    private UserLevel userLevel;
 
     /**
      * 创建时间

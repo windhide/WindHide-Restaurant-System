@@ -5,14 +5,14 @@
 <mapper namespace="com.windhide.employee.mapper.EmployeeMapper">
 
     <resultMap id="BaseResultMap" type="com.windhide.employee.pojo.Employee">
-            <id property="employee_id" column="employee_id" jdbcType="INTEGER"/>
-            <result property="employee_name" column="employee_name" jdbcType="VARCHAR"/>
-            <result property="employee_image" column="employee_image" jdbcType="VARCHAR"/>
-            <result property="employee_username" column="employee_username" jdbcType="VARCHAR"/>
-            <result property="employee_password" column="employee_password" jdbcType="VARCHAR"/>
-            <result property="employee_salary" column="employee_salary" jdbcType="DECIMAL"/>
-            <result property="employee_type_id" column="employee_type_id" jdbcType="INTEGER"/>
-            <result property="create_time" column="create_time" jdbcType="TIMESTAMP"/>
+            <id property="employeeId" column="employee_id" jdbcType="INTEGER"/>
+            <result property="employeeName" column="employee_name" jdbcType="VARCHAR"/>
+            <result property="employeeImage" column="employee_image" jdbcType="VARCHAR"/>
+            <result property="employeeUsername" column="employee_username" jdbcType="VARCHAR"/>
+            <result property="employeePassword" column="employee_password" jdbcType="VARCHAR"/>
+            <result property="employeeSalary" column="employee_salary" jdbcType="DECIMAL"/>
+            <result property="employeeTypeId" column="employee_type_id" jdbcType="INTEGER"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <sql id="Base_Column_List">

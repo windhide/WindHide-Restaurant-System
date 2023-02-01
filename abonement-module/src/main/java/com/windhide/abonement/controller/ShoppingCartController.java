@@ -1,9 +1,8 @@
 package com.windhide.abonement.controller;
 
 import com.github.pagehelper.PageHelper;
-import com.windhide.abonement.pojo.Order;
 import com.windhide.abonement.pojo.ShoppingCart;
-import com.windhide.abonement.service.impl.ShoppingCartServiceImpl;
+import com.windhide.abonement.service.ShoppingCartService;
 import com.windhide.restaurant.pojo.T;
 import com.windhide.restaurant.util.StateCode;
 import com.windhide.restaurant.util.TimeUtil;
@@ -18,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ShoppingCartController {
 
     @Autowired
-    ShoppingCartServiceImpl shoppingCartService;
+    ShoppingCartService shoppingCartService;
 
     @RequestMapping("select")
     public T selectAllShoppingCart(@RequestBody int pageNum,@RequestBody int pageSize){
