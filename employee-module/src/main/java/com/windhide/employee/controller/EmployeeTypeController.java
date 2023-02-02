@@ -21,7 +21,9 @@ public class EmployeeTypeController {
 
     @RequestMapping("select")
     public T selectAllEmployeeType(@RequestBody int pageNum, @RequestBody int pageSize){
-        PageHelper.startPage(pageNum,pageSize);
+        if(pageNum > 0){
+            PageHelper.startPage(pageNum,pageSize);
+        }
         return new T(StateCode.SUCCESS,employeeTypeService.list(), TimeUtil.getNowTime());
     }
 

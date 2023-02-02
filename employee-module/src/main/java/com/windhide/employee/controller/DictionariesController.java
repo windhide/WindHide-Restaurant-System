@@ -21,7 +21,9 @@ public class DictionariesController {
 
     @RequestMapping("select")
     public T selectAllDictionaries(@RequestBody int pageNum, @RequestBody int pageSize){
-        PageHelper.startPage(pageNum,pageSize);
+        if(pageNum > 0){
+            PageHelper.startPage(pageNum,pageSize);
+        }
         return new T(StateCode.SUCCESS,aictionariesService.list(), TimeUtil.getNowTime());
     }
 

@@ -21,7 +21,9 @@ public class UserLevelController {
 
     @RequestMapping("select")
     public T selectAllUserLevel(@RequestBody int pageNum,@RequestBody int pageSize){
-        PageHelper.startPage(pageNum,pageSize);
+        if(pageNum > 0){
+            PageHelper.startPage(pageNum,pageSize);
+        }
         return new T(StateCode.SUCCESS,userLevelService.list(), TimeUtil.getNowTime());
     }
 

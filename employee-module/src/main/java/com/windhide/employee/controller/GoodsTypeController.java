@@ -21,7 +21,9 @@ public class GoodsTypeController {
 
     @RequestMapping("select")
     public T selectAllGoodsType(@RequestBody int pageNum, @RequestBody int pageSize){
-        PageHelper.startPage(pageNum,pageSize);
+        if(pageNum > 0){
+            PageHelper.startPage(pageNum,pageSize);
+        }
         return new T(StateCode.SUCCESS,goodsTypeService.list(), TimeUtil.getNowTime());
     }
 

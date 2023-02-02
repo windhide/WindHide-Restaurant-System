@@ -21,7 +21,9 @@ public class ActivityController {
 
     @RequestMapping("select")
     public T selectAllActivity(@RequestBody int pageNum, @RequestBody int pageSize){
-        PageHelper.startPage(pageNum,pageSize);
+        if(pageNum > 0){
+            PageHelper.startPage(pageNum,pageSize);
+        }
         return new T(StateCode.SUCCESS,activityService.list(), TimeUtil.getNowTime());
     }
 

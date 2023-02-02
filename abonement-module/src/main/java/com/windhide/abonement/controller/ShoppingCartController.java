@@ -21,7 +21,9 @@ public class ShoppingCartController {
 
     @RequestMapping("select")
     public T selectAllShoppingCart(@RequestBody int pageNum,@RequestBody int pageSize){
-        PageHelper.startPage(pageNum,pageSize);
+        if(pageNum > 0){
+            PageHelper.startPage(pageNum,pageSize);
+        }
         return new T(StateCode.SUCCESS,shoppingCartService.list(), TimeUtil.getNowTime());
     }
 

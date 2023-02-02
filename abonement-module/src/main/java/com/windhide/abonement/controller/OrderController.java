@@ -23,7 +23,9 @@ public class OrderController {
 
     @RequestMapping("select")
     public T selectAllOrder(@RequestBody int pageNum,@RequestBody int pageSize){
-        PageHelper.startPage(pageNum,pageSize);
+        if(pageNum > 0){
+            PageHelper.startPage(pageNum,pageSize);
+        }
         return new T(StateCode.SUCCESS,orderService.list(), TimeUtil.getNowTime());
     }
 
