@@ -1,9 +1,9 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+import {createRouter, createWebHistory, RouteRecordRaw} from 'vue-router'
 
 export const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: 'abonement',
+    name: 'abonementView',
     component: () => import("@/views/abonementView.vue"),
     children: [
       {
@@ -58,7 +58,79 @@ export const routes: Array<RouteRecordRaw> = [
       }
     ]
   },
-  
+  {
+    path: '/employeeView',
+    name: 'employeeView',
+    component: () => import("@/views/employeeView.vue"),
+    children: [
+      {
+        path: "shoping",
+        name: "店铺功能",
+        props: {
+          icon: 'Ship',
+        },
+        children: [
+          {
+            path: "activity",
+            name: "活动管理",
+            component: () => import("@/components/employee/activity.vue"),
+            props: {
+              icon: 'Mug',
+            }
+          },
+          {
+            path: "employeeType",
+            name: "员工类型管理",
+            component: () => import("@/components/employee/employeeType.vue"),
+            props: {
+              icon: 'GoldMedal',
+            }
+          },
+          {
+            path: "goodsType",
+            name: "菜品类型管理",
+            component: () => import("@/components/employee/goodsType.vue"),
+            props: {
+              icon: 'Bell',
+            }
+          },
+        ]
+      },
+      {
+        path: "messeage",
+        name: "信息功能",
+        props: {
+          icon: 'Timer',
+        },
+        children: [
+          {
+            path: "goods",
+            name: "菜品管理",
+            component: () => import("@/components/employee/goods.vue"),
+            props: {
+              icon: 'KnifeFork',
+            }
+          },
+          {
+            path: "employee",
+            name: "员工管理",
+            component: () => import("@/components/employee/employee.vue"),
+            props: {
+              icon: 'User',
+            }
+          },
+          {
+            path: "incomeState",
+            name: "收入报表",
+            component: () => import("@/components/employee/incomeState.vue"),
+            props: {
+              icon: 'Money',
+            }
+          },
+        ]
+      }
+    ]
+  },
 ]
 
 const router = createRouter({

@@ -1,3 +1,3 @@
 <template>
-
+    goods
 </template>

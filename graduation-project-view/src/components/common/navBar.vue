@@ -1,5 +1,5 @@
 <template>
-    <el-aside width="12%">
+    <el-aside width="13%" style="height:100vh">
     <el-scrollbar>
       <el-menu :default-openeds="['0', '1', '2', '3']" v-for="(navigation,index) in NAVIGATION.children">
         <el-sub-menu :index="String(index)">
@@ -25,8 +25,9 @@
 </template>
 
 <script lang="ts" setup>
-    import { getNavigation } from '@/apis/navigationApi';
-    type Props = {
+import {getNavigation} from '@/apis/navigationApi';
+
+type Props = {
         navigationFatherName: string,
     }
     const prop = defineProps<Props>()    
@@ -38,3 +39,5 @@
     }
 
 </script>
+
+

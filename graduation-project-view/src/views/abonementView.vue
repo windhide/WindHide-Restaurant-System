@@ -11,9 +11,7 @@
 </template>
 
 <script lang="ts" setup>
-import NavBar from "@/components/common/navBar.vue";
-import NavHead from "@/components/common/navHead.vue";
-</script>
+import NavBar from "@/components/common/navBar.vue";</script>
 
 <style scoped>
 .layout-container-demo .el-header {

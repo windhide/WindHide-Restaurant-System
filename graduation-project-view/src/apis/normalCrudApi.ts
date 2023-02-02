@@ -1,6 +1,5 @@
-import { ElMessageBox, ElMessage } from "element-plus"
+import {ElMessage, ElMessageBox} from "element-plus"
 import axios from "@/apis/axiosApis"
-import router from "@/router"
 
 class Operation {
     opreationUrl = ""
@@ -8,9 +7,9 @@ class Operation {
     dataShowName = ""
 }
 
-export function CURRENCY_SELECT(url: String,requestBody: any) {
-    return axios.post(url + "/select",requestBody).then((res: any) => {
-        if (res.data.state != 200) {
+export function CURRENCY_SELECT(url: String, pageNum: Number, pageSize: Number) {
+    return axios.post(url + "/select",{pageNum: pageNum, pageSize: pageSize}).then((res: any) => {
+        if (res.data.state != "SUCCESS") {
             setTimeout(() => {
                 ElMessage({ type: 'error', message: '数据请求出错！', })
             }, 300);
@@ -33,7 +32,6 @@ export async function CURRENCY_REQUEST(url: String, data: any, operation: Operat
         ElMessage({ type: 'error', message: '信息操作失败，请检查传入参数!' })
         return
     }
-
     return await ElMessageBox.confirm(
         '确认' + operation.operationName + '>>' + operation.dataShowName + '吗?',
         operation.operationName + '确认',
@@ -43,15 +41,27 @@ export async function CURRENCY_REQUEST(url: String, data: any, operation: Operat
             type: 'warning',
         }
     ).then(async () => {
-        await axios.post(url + "/" + operation.opreationUrl + "/", data).then(async (res: any) => {
-            if (res.data.responeData) {
-                await ElMessage({ type: 'success', message: '数据>>' + operation.dataShowName + '<<' + operation.operationName + '成功!' })
-                return true
-            } else {
-                await ElMessage({ type: 'error', message: '因为服务器原因，数据>>' + operation.dataShowName + '<<' + operation.operationName + '失败!' })
-                return false
-            }
-        })
+        if(operation.opreationUrl == "remove"){
+            await axios.post(url + "/" + operation.opreationUrl+"/"+data.removeId).then(async (res: any) => {
+                if (res.data.responeData) {
+                    await ElMessage({ type: 'success', message: '数据>>' + operation.dataShowName + '<<' + operation.operationName + '成功!' })
+                    return true
+                } else {
+                    await ElMessage({ type: 'error', message: '因为服务器原因，数据>>' + operation.dataShowName + '<<' + operation.operationName + '失败!' })
+                    return false
+                }
+            })
+        }else{
+            await axios.post(url + "/" + operation.opreationUrl, data).then(async (res: any) => {
+                if (res.data.responeData) {
+                    await ElMessage({ type: 'success', message: '数据>>' + operation.dataShowName + '<<' + operation.operationName + '成功!' })
+                    return true
+                } else {
+                    await ElMessage({ type: 'error', message: '因为服务器原因，数据>>' + operation.dataShowName + '<<' + operation.operationName + '失败!' })
+                    return false
+                }
+            })
+        }
     }).catch(() => {
         ElMessage({ type: 'info', message: '取消操作', })
         return false
@@ -87,6 +97,7 @@ export function CURRENCY_OPERATION_API(operation: Number, dataShowName: string) 
 
 export function FORM_STATS_JUDGE(data: any) {
     for (let key in data) {
+        if(key == "createTime") continue;
         if (data[key] == "" || data[key] == undefined || data[key] == null) {
             ElMessage({ type: 'error', message: '表单的数据不能为空！' })
             console.log(key)
@@ -125,5 +136,5 @@ export function GET_NOW_DATE_FORMATE() {
     let hours = date.getHours()
     let minutes = date.getMinutes()
     let seconds = date.getSeconds();
-    return year + "年" + month + "月" + day + "日" + hours + "时" + minutes + "分" + (seconds < 10 ? "0" + seconds : seconds) + "秒"
+    return year + "-" + month + "-" + day
 }
