@@ -1,20 +1,64 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 
-const routes: Array<RouteRecordRaw> = [
+export const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: 'home',
-    component: HomeView
+    name: 'abonement',
+    component: () => import("@/views/abonementView.vue"),
+    children: [
+      {
+        path: "shoping",
+        name: "点餐功能",
+        props: {
+          icon: 'ShoppingCart',
+        },
+        children: [
+          {
+            path: "order",
+            name: "去点餐",
+            component: () => import("@/components/abonement/order.vue"),
+            props: {
+              icon: 'Food',
+            }
+          },
+          {
+            path: "shoppingCart",
+            name: "购物车",
+            component: () => import("@/components/abonement/shoppingCart.vue"),
+            props: {
+              icon: 'ShoppingCart',
+            }
+          },
+          {
+            path: "reserve",
+            name: "预约餐桌",
+            component: () => import("@/components/abonement/reserve.vue"),
+            props: {
+              icon: 'Bell',
+            }
+          },
+        ]
+      },
+      {
+        path: "setting",
+        name: "设置",
+        props: {
+          icon: 'Setting',
+        },
+        children: [
+          {
+            path: "userData",
+            name: "修改个人资料",
+            component: () => import("@/components/abonement/userData.vue"),
+            props: {
+              icon: 'User',
+            }
+          }
+        ]
+      }
+    ]
   },
-  {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  }
+  
 ]
 
 const router = createRouter({
