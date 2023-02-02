@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequestMapping("employeeType")
 public class EmployeeTypeController {
@@ -21,10 +24,12 @@ public class EmployeeTypeController {
 
     @RequestMapping("select")
     public T selectAllEmployeeType(@RequestBody int pageNum, @RequestBody int pageSize){
+        Map<String,Object> map = new HashMap<>();
         if(pageNum > 0){
-            PageHelper.startPage(pageNum,pageSize);
+            map.put("page",PageHelper.startPage(pageNum,pageSize));
         }
-        return new T(StateCode.SUCCESS,employeeTypeService.list(), TimeUtil.getNowTime());
+        map.put("data",employeeTypeService.list());
+        return new T(StateCode.SUCCESS, map, TimeUtil.getNowTime());
     }
 
     @RequestMapping("update")
