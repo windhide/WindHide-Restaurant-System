@@ -1,5 +1,6 @@
 package com.windhide.employee.controller;
 
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.windhide.employee.pojo.GoodsType;
 import com.windhide.employee.service.GoodsTypeService;
@@ -12,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequestMapping("goodsType")
 public class GoodsTypeController {
@@ -20,11 +24,15 @@ public class GoodsTypeController {
     GoodsTypeService goodsTypeService;
 
     @RequestMapping("select")
-    public T selectAllGoodsType(@RequestBody int pageNum, @RequestBody int pageSize){
-        if(pageNum > 0){
-            PageHelper.startPage(pageNum,pageSize);
+    public T selectAllGoodsType(@RequestBody HashMap<String,Integer> hashMap){
+        Map<String,Object> dataMap = new HashMap<>();
+        Page page = null;
+        if(hashMap.get("pageNum") > 0){
+            page = PageHelper.startPage(hashMap.get("pageNum"),hashMap.get("pageSize"));
         }
-        return new T(StateCode.SUCCESS,goodsTypeService.list(), TimeUtil.getNowTime());
+        dataMap.put("data",goodsTypeService.list());
+        dataMap.put("page",page);
+        return new T(StateCode.SUCCESS,dataMap, TimeUtil.getNowTime());
     }
 
     @RequestMapping("update")

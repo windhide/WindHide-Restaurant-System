@@ -13,7 +13,7 @@ spring:
           uri: lb://abonement-module
           predicates:
             - Path=/order/**,/shoppingCart/**,/user/**,/userLevel/**
-        - id: employee-service
-          uri: lb://employee-service
+        - id: employee-module
+          uri: lb://employee-module
           predicates:
             - Path=/activity/**,/dictionaries/**,/employee/**,/employeeType/**,/goods/**,/goodsType/**,/incomeState/**

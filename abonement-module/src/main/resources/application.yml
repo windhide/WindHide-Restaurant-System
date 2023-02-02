@@ -18,10 +18,10 @@ spring:
       host: 127.0.0.1
       port: 6379
       password: 3302983
-mybatis:
-  type-aliases-package: com.windhide.abonement.pojo
-  configuration:
-    map-underscore-to-camel-case: true
+mybatis-plus:
+ type-aliases-package: com.windhide.abonement.pojo
+ configuration:
+  map-underscore-to-camel-case: true
 logging:
   level:
     com.windhide.abonement: debug
