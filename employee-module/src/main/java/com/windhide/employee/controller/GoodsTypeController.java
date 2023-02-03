@@ -2,6 +2,7 @@ package com.windhide.employee.controller;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.windhide.employee.pojo.GoodsType;
 import com.windhide.employee.service.GoodsTypeService;
 import com.windhide.restaurant.pojo.T;
@@ -30,8 +31,9 @@ public class GoodsTypeController {
         if(hashMap.get("pageNum") > 0){
             page = PageHelper.startPage(hashMap.get("pageNum"),hashMap.get("pageSize"));
         }
+        PageInfo info = new PageInfo<>(page.getResult());
         dataMap.put("data",goodsTypeService.list());
-        dataMap.put("page",page);
+        dataMap.put("pageInfo",info);
         return new T(StateCode.SUCCESS,dataMap, TimeUtil.getNowTime());
     }
 

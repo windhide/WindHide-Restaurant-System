@@ -1,6 +1,8 @@
 package com.windhide.employee.controller;
 
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.windhide.employee.pojo.EmployeeType;
 import com.windhide.employee.service.EmployeeTypeService;
 import com.windhide.restaurant.pojo.T;
@@ -23,13 +25,16 @@ public class EmployeeTypeController {
     EmployeeTypeService employeeTypeService;
 
     @RequestMapping("select")
-    public T selectAllEmployeeType(@RequestBody int pageNum, @RequestBody int pageSize){
-        Map<String,Object> map = new HashMap<>();
-        if(pageNum > 0){
-            map.put("page",PageHelper.startPage(pageNum,pageSize));
+    public T selectAllEmployeeType(@RequestBody HashMap<String,Integer> hashMap){
+        Map<String,Object> dataMap = new HashMap<>();
+        Page page = null;
+        if(hashMap.get("pageNum") > 0){
+            page = PageHelper.startPage(hashMap.get("pageNum"),hashMap.get("pageSize"));
         }
-        map.put("data",employeeTypeService.list());
-        return new T(StateCode.SUCCESS, map, TimeUtil.getNowTime());
+        PageInfo info = new PageInfo<>(page.getResult());
+        dataMap.put("data",employeeTypeService.list());
+        dataMap.put("pageInfo",info);
+        return new T(StateCode.SUCCESS,dataMap, TimeUtil.getNowTime());
     }
 
     @RequestMapping("update")

@@ -1,6 +1,8 @@
 package com.windhide.employee.controller;
 
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.windhide.employee.pojo.Activity;
 import com.windhide.employee.service.ActivityService;
 import com.windhide.restaurant.pojo.T;
@@ -12,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequestMapping("activity")
 public class ActivityController {
@@ -20,11 +25,16 @@ public class ActivityController {
     ActivityService activityService;
 
     @RequestMapping("select")
-    public T selectAllActivity(@RequestBody int pageNum, @RequestBody int pageSize){
-        if(pageNum > 0){
-            PageHelper.startPage(pageNum,pageSize);
+    public T selectAllActivity(@RequestBody HashMap<String,Integer> hashMap){
+        Map<String,Object> dataMap = new HashMap<>();
+        Page page = null;
+        if(hashMap.get("pageNum") > 0){
+            page = PageHelper.startPage(hashMap.get("pageNum"),hashMap.get("pageSize"));
         }
-        return new T(StateCode.SUCCESS,activityService.list(), TimeUtil.getNowTime());
+        PageInfo info = new PageInfo<>(page.getResult());
+        dataMap.put("data",activityService.list());
+        dataMap.put("pageInfo",info);
+        return new T(StateCode.SUCCESS,dataMap, TimeUtil.getNowTime());
     }
 
     @RequestMapping("update")
