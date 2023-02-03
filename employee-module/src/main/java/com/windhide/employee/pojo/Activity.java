@@ -36,11 +36,13 @@ public class Activity implements Serializable {
     /**
      * 活动开始时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date activityStartTime;
 
     /**
      * 活动结束时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date activityEndTime;
 
     /**
