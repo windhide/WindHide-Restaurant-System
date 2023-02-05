@@ -49,7 +49,7 @@ public class Activity implements Serializable {
      * 
      */
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date createTime;
 
 }
