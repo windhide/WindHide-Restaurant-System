@@ -1,6 +1,5 @@
 package com.windhide.employee.controller;
 
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.windhide.employee.pojo.Goods;
@@ -37,14 +36,11 @@ public class GoodsController {
     @RequestMapping("select")
     public T selectAllGoods(@RequestBody HashMap<String,Integer> hashMap){
         Map<String,Object> dataMap = new HashMap<>();
-        Page page = null;
-        if(hashMap.get("pageNum") > 0){
-            page = PageHelper.startPage(hashMap.get("pageNum"),hashMap.get("pageSize"));
-        }
-        PageInfo info = new PageInfo<>(page.getResult());
-        drugsTypeInit();
+        //分页
+        PageInfo info = new PageInfo<>(PageHelper.startPage(hashMap.get("pageNum"),hashMap.get("pageSize")).getResult());
+        goodsTypeInit();
         List<Goods> goodsList = goodsService.list();
-        goodsList.replaceAll(this::drugsTypeInit);
+        goodsList.replaceAll(this::goodsTypeInit);
         dataMap.put("data",goodsList);
         dataMap.put("pageInfo",info);
         return new T(StateCode.SUCCESS, dataMap, TimeUtil.getNowTime());
@@ -68,7 +64,7 @@ public class GoodsController {
     /**
      * 加载菜单类型
      */
-    public void drugsTypeInit() {
+    public void goodsTypeInit() {
         goodsTypeMap = goodsTypeService.list().stream().collect(Collectors.toMap(GoodsType::getGoodsTypeId, goodsType -> goodsType));
     }
 
@@ -78,7 +74,7 @@ public class GoodsController {
      * @param goods
      * @return
      */
-    public Goods drugsTypeInit(Goods goods) {
+    public Goods goodsTypeInit(Goods goods) {
         GoodsType tempGoodsType = goodsTypeMap.get(goods.getGoodsTypeId());
         goods.setGoodsType(tempGoodsType);
         return goods;

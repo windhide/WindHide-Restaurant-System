@@ -1,6 +1,5 @@
 package com.windhide.employee.controller;
 
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.windhide.employee.pojo.Activity;
@@ -27,11 +26,8 @@ public class ActivityController {
     @RequestMapping("select")
     public T selectAllActivity(@RequestBody HashMap<String,Integer> hashMap){
         Map<String,Object> dataMap = new HashMap<>();
-        Page page = null;
-        if(hashMap.get("pageNum") > 0){
-            page = PageHelper.startPage(hashMap.get("pageNum"),hashMap.get("pageSize"));
-        }
-        PageInfo info = new PageInfo<>(page.getResult());
+        //分页
+        PageInfo info = new PageInfo<>(PageHelper.startPage(hashMap.get("pageNum"),hashMap.get("pageSize")).getResult());
         dataMap.put("data",activityService.list());
         dataMap.put("pageInfo",info);
         return new T(StateCode.SUCCESS,dataMap, TimeUtil.getNowTime());

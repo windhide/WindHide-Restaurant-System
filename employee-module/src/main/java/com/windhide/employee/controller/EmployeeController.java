@@ -1,10 +1,11 @@
 package com.windhide.employee.controller;
 
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.windhide.employee.pojo.Employee;
+import com.windhide.employee.pojo.EmployeeType;
 import com.windhide.employee.service.EmployeeService;
+import com.windhide.employee.service.EmployeeTypeService;
 import com.windhide.restaurant.pojo.T;
 import com.windhide.restaurant.util.StateCode;
 import com.windhide.restaurant.util.TimeUtil;
@@ -15,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("employee")
@@ -24,15 +27,20 @@ public class EmployeeController {
     @Autowired
     EmployeeService employeeService;
 
+    @Autowired
+    EmployeeTypeService employeeTypeService;
+
+    Map<Integer, EmployeeType> employeeTypeMap;
+
     @RequestMapping("select")
     public T selectAllEmployee(@RequestBody HashMap<String,Integer> hashMap){
         Map<String,Object> dataMap = new HashMap<>();
-        Page page = null;
-        if(hashMap.get("pageNum") > 0){
-            page = PageHelper.startPage(hashMap.get("pageNum"),hashMap.get("pageSize"));
-        }
-        PageInfo info = new PageInfo<>(page.getResult());
-        dataMap.put("data",employeeService.list());
+        //分页
+        PageInfo info = new PageInfo<>(PageHelper.startPage(hashMap.get("pageNum"),hashMap.get("pageSize")).getResult());
+        employeeTypeInit();
+        List<Employee> employeeList = employeeService.list();
+        employeeList.replaceAll(this::employeeTypeInit);
+        dataMap.put("data",employeeList);
         dataMap.put("pageInfo",info);
         return new T(StateCode.SUCCESS,dataMap, TimeUtil.getNowTime());
     }
@@ -50,6 +58,25 @@ public class EmployeeController {
     @RequestMapping("insert")
     public T insertOrder(@RequestBody Employee employee) {
         return new T(StateCode.SUCCESS,employeeService.save(employee), TimeUtil.getNowTime());
+    }
+
+    /**
+     * 加载菜单类型
+     */
+    public void employeeTypeInit() {
+        employeeTypeMap = employeeTypeService.list().stream().collect(Collectors.toMap(EmployeeType::getEmployeeTypeId, employeeType -> employeeType));
+    }
+
+    /**
+     * 植入菜单类型
+     *
+     * @param employee
+     * @return
+     */
+    public Employee employeeTypeInit(Employee employee) {
+        EmployeeType tempEmployeeType = employeeTypeMap.get(employee.getEmployeeTypeId());
+        employee.setEmployeeType(tempEmployeeType);
+        return employee;
     }
 
 }
