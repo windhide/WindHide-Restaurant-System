@@ -37,6 +37,14 @@ export const routes: Array<RouteRecordRaw> = [
               icon: 'Bell',
             }
           },
+          {
+            path: "order",
+            name: "历史订单",
+            component: () => import("@/components/abonement/order.vue"),
+            props: {
+              icon: 'Checked',
+            }
+          },
         ]
       },
       {
