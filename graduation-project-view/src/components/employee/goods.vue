@@ -31,6 +31,24 @@
             <el-form-item label="菜品名字" :label-width="formLabelWidth">
                 <el-input v-model="goodsEditForm.goodsName" autocomplete="off" />
             </el-form-item>
+            <el-form-item label="菜品名字" :label-width="formLabelWidth">
+                <!-- 占位符 -->
+                <el-input v-model="goodsEditForm.goodsImage" autocomplete="off" />
+            </el-form-item>
+            <el-form-item label="菜品价格" :label-width="formLabelWidth">
+                <el-input v-model="goodsEditForm.goodsPrice" autocomplete="off" />
+            </el-form-item>
+            <el-form-item label="菜品折扣" :label-width="formLabelWidth">
+                <el-input v-model="goodsEditForm.goodsDiscount" autocomplete="off" />
+            </el-form-item>
+            <el-form-item label="菜品价格" :label-width="formLabelWidth">
+                <el-input v-model="goodsEditForm.goodsPrice" autocomplete="off" />
+            </el-form-item>
+            <el-form-item label="菜品类型" :label-width="formLabelWidth">
+                <el-select v-model="goodsEditForm.goodsTypeId" placeholder="选择菜品类型">
+                    <el-option v-for="goodsType in goodsTypeList" :label=goodsType.goodsTypeName :value=goodsType.goodsTypeId />
+                </el-select>
+            </el-form-item>
         </el-form>
         <template #footer>
             <span class="dialog-footer">
@@ -44,6 +62,24 @@
         <el-form :model="goodsAddForm">
             <el-form-item label="菜品名字" :label-width="formLabelWidth">
                 <el-input v-model="goodsAddForm.goodsName" autocomplete="off" />
+            </el-form-item>
+            <el-form-item label="菜品名字" :label-width="formLabelWidth">
+                <!-- 占位符 -->
+                <el-input v-model="goodsAddForm.goodsImage" autocomplete="off" />
+            </el-form-item>
+            <el-form-item label="菜品价格" :label-width="formLabelWidth">
+                <el-input v-model="goodsAddForm.goodsPrice" autocomplete="off" />
+            </el-form-item>
+            <el-form-item label="菜品折扣" :label-width="formLabelWidth">
+                <el-input v-model="goodsAddForm.goodsDiscount" autocomplete="off" />
+            </el-form-item>
+            <el-form-item label="菜品价格" :label-width="formLabelWidth">
+                <el-input v-model="goodsAddForm.goodsPrice" autocomplete="off" />
+            </el-form-item>
+            <el-form-item label="菜品类型" :label-width="formLabelWidth">
+                <el-select v-model="goodsAddForm.goodsTypeId" placeholder="选择菜品类型">
+                    <el-option v-for="goodsType in goodsTypeList" :label=goodsType.goodsTypeName :value=goodsType.goodsTypeId />
+                </el-select>
             </el-form-item>
         </el-form>
         <template #footer>
@@ -77,6 +113,12 @@ let totals = ref(1); // 给初始值
 let nowPage = ref(1);
 let cacheData = "";
 let SHOW_PAGINATION = ref(true);
+let goodsTypeList: any = reactive([])
+
+CURRENCY_SELECT("goodsType",1,100)?.then(res =>{
+    goodsTypeList.length = 0
+    goodsTypeList.push(...res.data.responeData.data)
+})
 
 let goodsEditForm = reactive({
     goodsId: 0,
@@ -94,9 +136,8 @@ let goodsAddForm = reactive({
     goodsImage: "",
     goodsPrice: "",
     goodsDiscount: 0.0,
-    goodsTypeId:0,
+    goodsTypeId:"",
     goodsType:{},
-    creatTime:"",
 })
 
 function RELOAD() {
@@ -141,6 +182,11 @@ async function EDIT(url: String, data: any, operationId: Number) {
     if (!EDIT_DIALOG.value && data != 'null') {
         goodsEditForm.goodsId = data.goodsId
         goodsEditForm.goodsName = data.goodsName
+        goodsEditForm.goodsImage = data.goodsImage
+        goodsEditForm.goodsPrice = data.goodsPrice
+        goodsEditForm.goodsDiscount = data.goodsDiscount
+        goodsEditForm.goodsTypeId = data.goodsTypeId
+        goodsEditForm.goodsType = data.goodsType
         cacheData = data.goodsName
     }
     EDIT_DIALOG.value = !EDIT_DIALOG.value;
