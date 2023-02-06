@@ -45,12 +45,6 @@ function logOut() {
   position: relative;
   background-color: var(--el-color-primary-light-7);
   color: var(--el-text-color-primary);
-  width: 100%;
-}
-
-.layout-container-demo .el-aside {
-  color: var(--el-text-color-primary);
-  background: var(--el-color-primary-light-8);
 }
 
 .layout-container-demo .el-menu {
@@ -68,4 +62,11 @@ function logOut() {
   height: 100%;
   right: 50px;
 }
+
+
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+  width: 500px;
+  min-height: 400px;
+}
+
 </style>
