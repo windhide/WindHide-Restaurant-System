@@ -31,6 +31,24 @@
             <el-form-item label="员工名字" :label-width="formLabelWidth">
                 <el-input v-model="employeeEditForm.employeeName" autocomplete="off" />
             </el-form-item>
+            <el-form-item label="员工照片" :label-width="formLabelWidth">
+                <el-input v-model="employeeEditForm.employeeImage" autocomplete="off" />
+                <!-- 占位符 -->
+            </el-form-item>
+            <el-form-item label="员工用户名" :label-width="formLabelWidth">
+                <el-input v-model="employeeEditForm.employeeUsername" autocomplete="off" />
+            </el-form-item>
+            <el-form-item label="员工密码" :label-width="formLabelWidth">
+                <el-input v-model="employeeEditForm.employeePassword" autocomplete="off" />
+            </el-form-item>
+            <el-form-item label="员工工资" :label-width="formLabelWidth">
+                <el-input v-model="employeeEditForm.employeeSalary" autocomplete="off" />
+            </el-form-item>
+            <el-form-item label="员工职位" :label-width="formLabelWidth">
+                <el-select v-model="employeeEditForm.employeeTypeId" placeholder="选择职位">
+                    <el-option v-for="employeeType in employeeTypelist" :label=employeeType.employeeTypeName :value=employeeType.employeeTypeId />
+                </el-select>
+            </el-form-item>
         </el-form>
         <template #footer>
             <span class="dialog-footer">
@@ -47,6 +65,7 @@
             </el-form-item>
             <el-form-item label="员工照片" :label-width="formLabelWidth">
                 <!-- 占位符 -->
+                <el-input v-model="employeeAddForm.employeeImage" autocomplete="off" />
             </el-form-item>
             <el-form-item label="员工用户名" :label-width="formLabelWidth">
                 <el-input v-model="employeeAddForm.employeeUsername" autocomplete="off" />
@@ -107,8 +126,8 @@ let employeeEditForm = reactive({
     employeeId: 0,
     employeeName: "",
     employeeImage: "",
-    employeeUsername: 0.0,
-    employeePassword: 0.0,
+    employeeUsername: "",
+    employeePassword: "",
     employeeSalary:0,
     employeeTypeId:0,
     employeeType:{},
@@ -118,12 +137,11 @@ let employeeAddForm = reactive({
     employeeId: 0,
     employeeName: "",
     employeeImage: "",
-    employeeUsername: 0.0,
-    employeePassword: 0.0,
-    employeeSalary:0,
-    employeeTypeId:0,
+    employeeUsername: "",
+    employeePassword: "",
+    employeeSalary:"",
+    employeeTypeId:"",
     employeeType:{},
-    creatTime:"",
 })
 
 function RELOAD() {
@@ -168,6 +186,12 @@ async function EDIT(url: String, data: any, operationId: Number) {
     if (!EDIT_DIALOG.value && data != 'null') {
         employeeEditForm.employeeId = data.employeeId
         employeeEditForm.employeeName = data.employeeName
+        employeeEditForm.employeeImage = data.employeeImage
+        employeeEditForm.employeeUsername = data.employeeUsername
+        employeeEditForm.employeePassword = data.employeePassword
+        employeeEditForm.employeeSalary = data.employeeSalary
+        employeeEditForm.employeeTypeId = data.employeeTypeId
+        employeeEditForm.employeeType = data.employeeType
         cacheData = data.employeeName
     }
     EDIT_DIALOG.value = !EDIT_DIALOG.value;
