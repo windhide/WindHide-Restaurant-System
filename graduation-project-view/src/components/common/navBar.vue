@@ -3,7 +3,8 @@
     class="el-menu-vertical-demo">
     <el-menu-item @click="isCollapse = !isCollapse">
       <el-icon>
-        <Switch />
+        <Expand v-if="isCollapse" />
+        <Fold v-else />
       </el-icon>
       <template #title>
         {{ isCollapse?"展开菜单": "收起菜单" }}
