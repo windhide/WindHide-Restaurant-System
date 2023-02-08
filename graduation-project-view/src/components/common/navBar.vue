@@ -32,9 +32,8 @@
 
 <script lang="ts" setup>
 import { getNavigation } from '@/apis/navigationApi';
-import { Switch } from '@element-plus/icons-vue';
 import { ref } from 'vue';
-const isCollapse = ref(true);
+const isCollapse = ref(false);
 
 type Props = {
   navigationFatherName: string,

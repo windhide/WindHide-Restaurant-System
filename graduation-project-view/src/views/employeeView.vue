@@ -65,7 +65,7 @@ function logOut() {
 
 
 .el-menu-vertical-demo:not(.el-menu--collapse) {
-  width: 500px;
+  width: 200px;
   min-height: 400px;
 }
 
