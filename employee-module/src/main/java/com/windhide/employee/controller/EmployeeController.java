@@ -61,14 +61,14 @@ public class EmployeeController {
     }
 
     /**
-     * 加载菜单类型
+     * 加载类型
      */
     public void employeeTypeInit() {
         employeeTypeMap = employeeTypeService.list().stream().collect(Collectors.toMap(EmployeeType::getEmployeeTypeId, employeeType -> employeeType));
     }
 
     /**
-     * 植入菜单类型
+     * 植入类型
      *
      * @param employee
      * @return

@@ -7,7 +7,6 @@
             <el-table-column prop="userPhone" label="用户电话号码" width="150" />
             <el-table-column prop="userGender" label="用户性别" width="150" />
             <el-table-column prop="userName" label="登录名" width="200" />
-            <el-table-column prop="userPassword" label="密码" width="200" />
             <el-table-column prop="userLevel.userLevelName" label="用户等级" width="150" />
             <el-table-column prop="createTime" label="创建时间" width="300" />
             <el-table-column fixed="right" label="操作">
@@ -163,7 +162,7 @@ function RELOAD() {
     CURRENCY_SELECT(URL, nowPage.value, 30)?.then(res => { // 赋值unit
         userList.length = 0
         console.log(res.data)
-        userList.push(...res.data.responeData);
+        userList.push(...res.data.responeData.data);
     })
 }
 
