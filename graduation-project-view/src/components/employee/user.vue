@@ -53,7 +53,7 @@
                 <el-input v-model="userEditForm.userPassword" autocomplete="off" />
             </el-form-item>
             <el-form-item label="用户等级" :label-width="formLabelWidth">
-                <el-select v-model="userEditForm.userLevelId" placeholder="选择职位">
+                <el-select v-model="userEditForm.userLevelId" placeholder="选择用户等级">
                     <el-option v-for="userLevel in userLevellist" :label=userLevel.userLevelName :value=userLevel.userLevelId />
                 </el-select>
             </el-form-item>
@@ -132,7 +132,7 @@ let userLevellist: any = reactive([])
 
 CURRENCY_SELECT("userLevel",1,100)?.then(res =>{
     userLevellist.length = 0
-    userLevellist.push(...res.data.responeData.data)
+    userLevellist.push(...res.data.responeData)
 })
 
 
@@ -163,7 +163,7 @@ function RELOAD() {
     CURRENCY_SELECT(URL, nowPage.value, 30)?.then(res => { // 赋值unit
         userList.length = 0
         console.log(res.data)
-        userList.push(...res.data.responeData.data);
+        userList.push(...res.data.responeData);
     })
 }
 
@@ -192,7 +192,7 @@ async function ADD(url: String, data: any, operationId: Number) {
     ADD_DIALOG.value = !ADD_DIALOG.value;
     userAddForm.userId = NaN;
     if (!ADD_DIALOG.value && data == 'null' && FORM_STATS_JUDGE(userAddForm)) {
-        await CURRENCY_REQUEST(url, userAddForm, CURRENCY_OPERATION_API(operationId, "->" + userAddForm.userName))
+        await CURRENCY_REQUEST(url, userAddForm, CURRENCY_OPERATION_API(operationId, "->" + userAddForm.userNickname))
         userAddForm = CLEAR_FORM(userAddForm)
     }
     RELOAD()
