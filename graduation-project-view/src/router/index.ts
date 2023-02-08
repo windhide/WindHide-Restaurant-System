@@ -88,7 +88,7 @@ export const routes: Array<RouteRecordRaw> = [
           },
           {
             path: "employeeType",
-            name: "员工类型管理",
+            name: "员工等级管理",
             component: () => import("@/components/employee/employeeType.vue"),
             props: {
               icon: 'GoldMedal',
@@ -100,6 +100,14 @@ export const routes: Array<RouteRecordRaw> = [
             component: () => import("@/components/employee/goodsType.vue"),
             props: {
               icon: 'Bell',
+            }
+          },
+          {
+            path: "userLevel",
+            name: "用户等级管理",
+            component: () => import("@/components/employee/userLevel.vue"),
+            props: {
+              icon: 'StarFilled',
             }
           },
         ]
@@ -124,7 +132,15 @@ export const routes: Array<RouteRecordRaw> = [
             name: "员工管理",
             component: () => import("@/components/employee/employee.vue"),
             props: {
-              icon: 'User',
+              icon: 'OfficeBuilding',
+            }
+          },
+          {
+            path: "user",
+            name: "用户管理",
+            component: () => import("@/components/employee/user.vue"),
+            props:{
+              icon: "User",
             }
           },
           {
