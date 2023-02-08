@@ -1,7 +1,7 @@
 <template>
     <el-scrollbar>
         <el-table :data="employeeTypeList" max-height="700">
-            <el-table-column prop="employeeTypeId" label="员工等级id" width="300" />
+            <el-table-column prop="employeeTypeId" label="员工等级id" width="120" />
             <el-table-column prop="employeeTypeName" label="员工等级名" width="200" />
             <el-table-column prop="createTime" label="创建时间" width="300" />
             <el-table-column fixed="right" label="操作">
