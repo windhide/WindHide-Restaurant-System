@@ -1,14 +1,14 @@
 <template>
     <el-scrollbar>
         <el-table :data="employeeList" max-height="700">
-            <el-table-column prop="employeeId" label="员工id" width="120" />
-            <el-table-column prop="employeeName" label="员工姓名" width="150" />
-            <el-table-column prop="employeeImage" label="员工照片" width="200" />
-            <el-table-column prop="employeeUsername" label="员工用户名" width="150" />
-            <el-table-column prop="employeeSalary" label="员工工资(元/月)" width="150" />
-            <el-table-column prop="employeeType.employeeTypeName" label="员工职位" width="200" />
-            <el-table-column prop="createTime" label="创建时间" width="300" />
-            <el-table-column fixed="right" label="操作">
+            <el-table-column align="center" prop="employeeId" label="员工id" width="120" />
+            <el-table-column align="center" prop="employeeName" label="员工姓名" width="150" />
+            <el-table-column align="center" prop="employeeImage" label="员工照片" width="200" />
+            <el-table-column align="center" prop="employeeUsername" label="员工用户名" width="150" />
+            <el-table-column align="center" prop="employeeSalary" label="员工工资(元/月)" width="150" />
+            <el-table-column align="center" prop="employeeType.employeeTypeName" label="员工职位" width="200" />
+            <el-table-column align="center" prop="createTime" label="创建时间" width="300" />
+            <el-table-column align="center" fixed="right" label="操作">
                 <template #header>
                     操作
                     <el-button type="success" :icon="StarFilled" @click="ADD_DIALOG = true">添加</el-button>

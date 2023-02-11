@@ -1,10 +1,10 @@
 <template>
     <el-scrollbar>
         <el-table :data="goodsTypeList" max-height="700">
-            <el-table-column prop="goodsTypeId" label="菜品类型id" width="120" />
-            <el-table-column prop="goodsTypeName" label="菜品类型名" width="200" />
-            <el-table-column prop="createTime" label="创建时间" width="300" />
-            <el-table-column fixed="right" label="操作">
+            <el-table-column align="center" prop="goodsTypeId" label="菜品类型id" width="120" />
+            <el-table-column align="center" prop="goodsTypeName" label="菜品类型名" width="200" />
+            <el-table-column align="center" prop="createTime" label="创建时间" width="300" />
+            <el-table-column align="center" fixed="right" label="操作">
                 <template #header>
                     操作
                     <el-button type="success" :icon="StarFilled" @click="ADD_DIALOG = true">添加</el-button>

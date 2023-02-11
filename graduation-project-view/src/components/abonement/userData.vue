@@ -10,6 +10,7 @@
                 </template>
                 <div class="text item">
                     序号:&nbsp;&nbsp;&nbsp;&nbsp;{{ user.userId }} <br /><br />
+                    <!-- 头像占位符 -->
                     昵称:&nbsp;&nbsp;&nbsp;&nbsp;{{ user.userName }} <br /><br />
                     登陆用户名:&nbsp;&nbsp;&nbsp;&nbsp;{{ user.userUserName }} <br /><br />
                     用户性别:&nbsp;&nbsp;&nbsp;&nbsp;{{ user.userSex }} <br /><br />
@@ -21,13 +22,13 @@
         </el-space>
     </div>
 
-    <el-dialog v-model="EDIT_DIALOG" title="权限信息修改" width="30%" align-center>
+    <el-dialog v-model="EDIT_DIALOG" title="个人信息修改" width="80%" align-center>
         <el-form :model="userEditForm">
             <el-form-item label="昵称" :label-width="formLabelWidth">
                 <el-input v-model="userEditForm.userName" />
             </el-form-item>
             <el-form-item label="用户名" :label-width="formLabelWidth">
-                <el-input v-model="userEditForm.userUserName" autocomplete="off" />
+                <el-input v-model="userEditForm.userUserName" autocomplete="off" disabled />
             </el-form-item>
             <el-form-item label="密码" :label-width="formLabelWidth">
                 <el-input v-model="userEditForm.userPassWord" autocomplete="off" />

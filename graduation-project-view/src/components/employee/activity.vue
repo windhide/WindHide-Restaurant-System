@@ -1,13 +1,13 @@
 <template>
     <el-scrollbar>
         <el-table :data="activityList" max-height="700">
-            <el-table-column prop="activityId" label="活动id" width="100" />
-            <el-table-column prop="activityName" label="活动名" width="300" />
-            <el-table-column prop="activityDiscount" label="折扣力度" width="150" />
-            <el-table-column prop="activityStartTime" label="活动开始时间" width="200" />
-            <el-table-column prop="activityEndTime" label="活动结束时间" width="200" />
-            <el-table-column prop="createTime" label="创建时间" width="300" />
-            <el-table-column fixed="right" label="操作">
+            <el-table-column align="center" prop="activityId" label="活动id" width="100" />
+            <el-table-column align="center" prop="activityName" label="活动名" width="300" />
+            <el-table-column align="center" prop="activityDiscount" label="折扣力度" width="150" />
+            <el-table-column align="center" prop="activityStartTime" label="活动开始时间" width="200" />
+            <el-table-column align="center" prop="activityEndTime" label="活动结束时间" width="200" />
+            <el-table-column align="center" prop="createTime" label="创建时间" width="300" />
+            <el-table-column align="center" fixed="right" label="操作">
                 <template #header>
                     操作
                     <el-button type="success" :icon="StarFilled" @click="ADD_DIALOG = true">添加</el-button>

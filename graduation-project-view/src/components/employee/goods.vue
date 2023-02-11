@@ -1,14 +1,18 @@
 <template>
     <el-scrollbar>
         <el-table :data="goodsList" max-height="700">
-            <el-table-column prop="goodsId" label="菜品id" width="120" />
-            <el-table-column prop="goodsName" label="菜品名" width="200" />
-            <el-table-column prop="goodsImage" label="菜品图片" width="200" />
-            <el-table-column prop="goodsPrice" label="菜品价格" width="100" />
-            <el-table-column prop="goodsDiscount" label="菜品折扣" width="100" />
-            <el-table-column prop="goodsType.goodsTypeName" label="菜品类型" width="200" />
-            <el-table-column prop="createTime" label="创建时间" width="300" />
-            <el-table-column fixed="right" label="操作">
+            <el-table-column align="center" prop="goodsId" label="菜品id" width="80" />
+            <el-table-column align="center" prop="goodsName" label="菜品名" width="150" />
+            <el-table-column align="center" label="菜品图片" width="200">
+                <template #default="scope">
+                    <img :src="'/api/static/food/' + scope.row.goodsImage" width="100" />
+                </template>
+            </el-table-column>
+            <el-table-column align="center" prop="goodsPrice" label="菜品价格" width="100" />
+            <el-table-column align="center" prop="goodsDiscount" label="菜品折扣" width="100" />
+            <el-table-column align="center" prop="goodsType.goodsTypeName" label="菜品类型" width="200" />
+            <el-table-column align="center" prop="createTime" label="创建时间" width="300" />
+            <el-table-column align="center" fixed="right" label="操作">
                 <template #header>
                     操作
                     <el-button type="success" :icon="StarFilled" @click="ADD_DIALOG = true">添加</el-button>
@@ -31,9 +35,15 @@
             <el-form-item label="菜品名字" :label-width="formLabelWidth">
                 <el-input v-model="goodsEditForm.goodsName" autocomplete="off" />
             </el-form-item>
-            <el-form-item label="菜品名字" :label-width="formLabelWidth">
+            <el-form-item label="菜品图片" :label-width="formLabelWidth">
+                <el-upload accept="image/*" ref="AddItemLink" action="/api/upload/food" list-type="picture-card"
+                    :on-preview="handlePictureCardPreview" :on-remove="handleRemove" :limit="2"
+                    :on-success="ItemLinkSuccessAdd">
+                    <el-icon class="avatar-uploader-icon">
+                        <Plus />
+                    </el-icon>
+                </el-upload>
                 <!-- 占位符 -->
-                <el-input v-model="goodsEditForm.goodsImage" autocomplete="off" />
             </el-form-item>
             <el-form-item label="菜品价格" :label-width="formLabelWidth">
                 <el-input v-model="goodsEditForm.goodsPrice" autocomplete="off" />
@@ -46,14 +56,15 @@
             </el-form-item>
             <el-form-item label="菜品类型" :label-width="formLabelWidth">
                 <el-select v-model="goodsEditForm.goodsTypeId" placeholder="选择菜品类型">
-                    <el-option v-for="goodsType in goodsTypeList" :label=goodsType.goodsTypeName :value=goodsType.goodsTypeId />
+                    <el-option v-for="goodsType in goodsTypeList" :label=goodsType.goodsTypeName
+                        :value=goodsType.goodsTypeId />
                 </el-select>
             </el-form-item>
         </el-form>
         <template #footer>
             <span class="dialog-footer">
                 <el-button @click="EDIT_DIALOG = false">取消</el-button>
-                <el-button type="primary" @click="CURRENCY_CRUD(URL,'null',2)">修改</el-button>
+                <el-button type="primary" @click="CURRENCY_CRUD(URL, 'null', 2)">修改</el-button>
             </span>
         </template>
     </el-dialog>
@@ -63,9 +74,15 @@
             <el-form-item label="菜品名字" :label-width="formLabelWidth">
                 <el-input v-model="goodsAddForm.goodsName" autocomplete="off" />
             </el-form-item>
-            <el-form-item label="菜品名字" :label-width="formLabelWidth">
+            <el-form-item label="菜品图片" :label-width="formLabelWidth">
+                <el-upload accept="image/*" ref="AddItemLink" action="/api/upload/food" list-type="picture-card"
+                    :on-preview="handlePictureCardPreview" :on-remove="handleRemove" :limit="2"
+                    :on-success="ItemLinkSuccessAdd">
+                    <el-icon class="avatar-uploader-icon">
+                        <Plus />
+                    </el-icon>
+                </el-upload>
                 <!-- 占位符 -->
-                <el-input v-model="goodsAddForm.goodsImage" autocomplete="off" />
             </el-form-item>
             <el-form-item label="菜品价格" :label-width="formLabelWidth">
                 <el-input v-model="goodsAddForm.goodsPrice" autocomplete="off" />
@@ -78,30 +95,36 @@
             </el-form-item>
             <el-form-item label="菜品类型" :label-width="formLabelWidth">
                 <el-select v-model="goodsAddForm.goodsTypeId" placeholder="选择菜品类型">
-                    <el-option v-for="goodsType in goodsTypeList" :label=goodsType.goodsTypeName :value=goodsType.goodsTypeId />
+                    <el-option v-for="goodsType in goodsTypeList" :label=goodsType.goodsTypeName
+                        :value=goodsType.goodsTypeId />
                 </el-select>
             </el-form-item>
         </el-form>
         <template #footer>
             <span class="dialog-footer">
                 <el-button @click="ADD_DIALOG = false">取消</el-button>
-                <el-button type="primary" @click="CURRENCY_CRUD(URL,'null',1)">添加</el-button>
+                <el-button type="primary" @click="CURRENCY_CRUD(URL, 'null', 1)">添加</el-button>
             </span>
         </template>
     </el-dialog>
-
+    <el-dialog v-model="dialogindialogVisible" :append-to-body="true">
+         <img style="width:60%" :src="dialogImageUrl" alt="">
+    </el-dialog>
 </template>
 
 <script lang="ts" setup>
-import {reactive, ref} from 'vue'
-import {Delete, Edit, StarFilled} from '@element-plus/icons-vue'
+import { reactive, ref } from 'vue'
+import { Delete, Edit, StarFilled } from '@element-plus/icons-vue'
 import {
-  CLEAR_FORM,
-  CURRENCY_OPERATION_API,
-  CURRENCY_REQUEST,
-  CURRENCY_SELECT,
-  FORM_STATS_JUDGE
+    CLEAR_FORM,
+    CURRENCY_OPERATION_API,
+    CURRENCY_REQUEST,
+    CURRENCY_SELECT,
+    FORM_STATS_JUDGE
 } from "@/apis/normalCrudApi"
+import axios from 'axios';
+let dialogImageUrl = ref('')
+let dialogindialogVisible = ref(false)
 
 let goodsList: any = reactive([])
 const URL = "goods" // 本组件内通用的url
@@ -115,7 +138,7 @@ let cacheData = "";
 let SHOW_PAGINATION = ref(true);
 let goodsTypeList: any = reactive([])
 
-CURRENCY_SELECT("goodsType",1,100)?.then(res =>{
+CURRENCY_SELECT("goodsType", 1, 100)?.then(res => {
     goodsTypeList.length = 0
     goodsTypeList.push(...res.data.responeData.data)
 })
@@ -126,9 +149,9 @@ let goodsEditForm = reactive({
     goodsImage: "",
     goodsPrice: 0.0,
     goodsDiscount: 0.0,
-    goodsTypeId:0,
-    goodsType:{},
-    creatTime:"",
+    goodsTypeId: 0,
+    goodsType: {},
+    creatTime: "",
 })
 let goodsAddForm = reactive({
     goodsId: 0,
@@ -136,8 +159,8 @@ let goodsAddForm = reactive({
     goodsImage: "",
     goodsPrice: "",
     goodsDiscount: 0.0,
-    goodsTypeId:"",
-    goodsType:{},
+    goodsTypeId: "",
+    goodsType: {},
 })
 
 function RELOAD() {
@@ -209,5 +232,53 @@ function handleSizeChange(val: number) {
     }, 100);
 };
 
+function ItemLinkSuccessAdd(response: any, file: any, fileList: any) { //增加的上传图片方法
+    if (fileList.length > 1) {
+        axios.post("/uploadRemove/food/"+fileList[0].response)
+        fileList.splice(0, 1);
+    }
+    goodsEditForm.goodsImage = response
+}
+function handlePictureCardPreview(file: any) {
+    dialogImageUrl = file.url;
+    dialogindialogVisible.value = true;
+}
+function handleRemove(file: any) {
+    axios.post("/uploadRemove/food/"+goodsEditForm.goodsImage)
+    goodsEditForm.goodsImage = ''
+    goodsAddForm.goodsImage = ''
+}
+
 RELOAD();
 </script>
+
+<style scoped>
+.avatar-uploader .avatar {
+    width: 178px;
+    height: 178px;
+    display: block;
+}
+</style>
+
+<style>
+.avatar-uploader .el-upload {
+    border: 1px dashed var(--el-border-color);
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: var(--el-transition-duration-fast);
+}
+
+.avatar-uploader .el-upload:hover {
+    border-color: var(--el-color-primary);
+}
+
+.el-icon.avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 178px;
+    height: 178px;
+    text-align: center;
+}
+</style>
