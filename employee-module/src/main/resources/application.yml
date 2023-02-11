@@ -18,6 +18,15 @@ spring:
       host: 127.0.0.1
       port: 6379
       password: 3302983
+  servlet:
+    multipart:
+      enabled: true  # 启用
+      max-file-size: 30MB # 上传文件单个限制
+      max-request-size: 60MB # 总限制
+  web:
+    resources:
+#      static-locations: file:E:/uploadFile #windows地址映射
+      static-locations: file:///usr/local/Project/upload/ #mac地址映射
 mybatis-plus:
   type-aliases-package: com.windhide.employee.pojo
   configuration:
@@ -37,3 +46,5 @@ feign:
     enabled: true
     max-connections: 200
     max-connections-per-route: 50
+#file-save-path: file:E:/uploadFile #windows地址映射
+file-save-path: file:///usr/local/Project/upload/ #mac地址映射

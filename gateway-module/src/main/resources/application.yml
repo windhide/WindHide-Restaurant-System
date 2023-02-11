@@ -17,3 +17,9 @@ spring:
           uri: lb://employee-module
           predicates:
             - Path=/activity/**,/dictionaries/**,/employee/**,/employeeType/**,/goods/**,/goodsType/**,/incomeState/**
+        - id: static-resources
+          uri: lb://employee-module
+          predicates:
+              - Path=/static/**
+          filters:
+            - StripPrefix=1
