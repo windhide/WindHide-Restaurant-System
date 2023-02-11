@@ -47,4 +47,4 @@ feign:
     max-connections: 200
     max-connections-per-route: 50
 #file-save-path: file:E:/uploadFile #windows地址映射
-file-save-path: file:///usr/local/Project/upload/ #mac地址映射
+file-save-path: /usr/local/Project/upload/ #mac地址映射

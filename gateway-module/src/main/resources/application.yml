@@ -16,7 +16,7 @@ spring:
         - id: employee-module
           uri: lb://employee-module
           predicates:
-            - Path=/activity/**,/dictionaries/**,/employee/**,/employeeType/**,/goods/**,/goodsType/**,/incomeState/**
+            - Path=/activity/**,/dictionaries/**,/employee/**,/employeeType/**,/goods/**,/goodsType/**,/incomeState/**,/uploadRemove/**,/upload/**
         - id: static-resources
           uri: lb://employee-module
           predicates:
