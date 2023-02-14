@@ -38,7 +38,7 @@
             <el-form-item label="菜品图片" :label-width="formLabelWidth">
                 <el-upload accept="image/*" ref="EditUpload" action="/api/upload/food" list-type="picture-card"
                     :on-preview="handlePictureCardPreview" :on-remove="handleRemove" :limit="2"
-                    :on-success="ItemLinkSuccessAdd">
+                    :on-success="goodsSuccessEdit">
                     <el-icon class="avatar-uploader-icon">
                         <Plus />
                     </el-icon>
@@ -81,7 +81,7 @@
             <el-form-item label="菜品图片" :label-width="formLabelWidth">
                 <el-upload accept="image/*" ref="AddUpload" action="/api/upload/food" list-type="picture-card"
                     :on-preview="handlePictureCardPreview" :on-remove="handleRemove" :limit="2"
-                    :on-success="ItemLinkSuccessAdd">
+                    :on-success="goodsSuccessAdd">
                     <el-icon class="avatar-uploader-icon">
                         <Plus />
                     </el-icon>
@@ -123,8 +123,8 @@ import {
     CURRENCY_SELECT,
     FORM_STATS_JUDGE
 } from "@/apis/normalCrudApi"
-import axios from 'axios';
 import { ElMessageBox, UploadInstance } from 'element-plus';
+import axios from '@/apis/axiosApis';
 
 let dialogImageUrl = ref('')
 let dialogindialogVisible = ref(false)
@@ -206,8 +206,8 @@ async function ADD(url: String, data: any, operationId: Number) {
     goodsAddForm.goodsId = NaN;
     if (!ADD_DIALOG.value && data == 'null' && FORM_STATS_JUDGE(goodsAddForm)) {
         await CURRENCY_REQUEST(url, goodsAddForm, CURRENCY_OPERATION_API(operationId, "->" + goodsAddForm.goodsName))
-        goodsAddForm = CLEAR_FORM(goodsAddForm)
-        AddUpload.value!.clearFiles();
+        await (goodsAddForm = CLEAR_FORM(goodsAddForm))
+        await AddUpload.value!.clearFiles();
     }
     RELOAD()
 }
@@ -225,17 +225,18 @@ async function EDIT(url: String, data: any, operationId: Number) {
     }
     EDIT_DIALOG.value = !EDIT_DIALOG.value;
     if (!EDIT_DIALOG.value && data == 'null') {
+        let cacheForm:any = reactive({})
+        cacheForm.goodsId = goodsEditForm.goodsId
+        cacheForm.goodsName = goodsEditForm.goodsName
+        cacheForm.goodsPrice = goodsEditForm.goodsPrice
+        cacheForm.goodsDiscount = goodsEditForm.goodsDiscount
+        cacheForm.goodsTypeId = goodsEditForm.goodsTypeId
+        cacheForm.goodsType = goodsEditForm.goodsType
         if(goodsEditForm.goodsImage == ""){
-            let cacheForm:any = reactive({})
-            cacheForm.goodsId = goodsEditForm.goodsId
-            cacheForm.goodsName = goodsEditForm.goodsName
-            cacheForm.goodsPrice = goodsEditForm.goodsPrice
-            cacheForm.goodsDiscount = goodsEditForm.goodsDiscount
-            cacheForm.goodsTypeId = goodsEditForm.goodsTypeId
-            cacheForm.goodsType = goodsEditForm.goodsType
             await CURRENCY_REQUEST(url, cacheForm, CURRENCY_OPERATION_API(operationId, "前->" + cacheData + ",后->" + goodsEditForm.goodsName))
         }else{
-            await CURRENCY_REQUEST(url, goodsEditForm, CURRENCY_OPERATION_API(operationId, "前->" + cacheData + ",后->" + goodsEditForm.goodsName))
+            cacheForm.goodsImage = goodsEditForm.goodsImage
+            await CURRENCY_REQUEST(url, cacheForm, CURRENCY_OPERATION_API(operationId, "前->" + cacheData + ",后->" + goodsEditForm.goodsName))
             await axios.post("/uploadRemove/food/" + EditNowImage.value)
         }
         EditUpload.value!.clearFiles();
@@ -272,27 +273,36 @@ function handleSizeChange(val: number) {
     }, 100);
 };
 
-function ItemLinkSuccessAdd(response: any, file: any, fileList: any) { //增加的上传图片方法
+function goodsSuccessAdd(response: any, file: any, fileList: any) { //增加的上传图片方法
+    if (fileList.length > 1) {
+        axios.post("/uploadRemove/food/" + fileList[0].response)
+        fileList.splice(0, 1);
+    }
+    goodsAddForm.goodsImage = response
+}
+function goodsSuccessEdit(response: any, file: any, fileList: any) { //增加的上传图片方法
     if (fileList.length > 1) {
         axios.post("/uploadRemove/food/" + fileList[0].response)
         fileList.splice(0, 1);
     }
     goodsEditForm.goodsImage = response
-    goodsAddForm.goodsImage = response
 }
 function handlePictureCardPreview(file: any) {
     dialogImageUrl = file.url;
     dialogindialogVisible.value = true;
 }
 function handleRemove() {
-    axios.post("/uploadRemove/food/" + goodsAddForm.goodsImage)
+    if(goodsAddForm.goodsImage!="")
+        axios.post("/uploadRemove/food/" + goodsAddForm.goodsImage)
+    if(goodsEditForm.goodsImage != "")
+        axios.post("/uploadRemove/food/" + goodsEditForm.goodsImage)
     goodsEditForm.goodsImage = ''
     goodsAddForm.goodsImage = ''
 }
 
 function closeDialog(){
     ElMessageBox.confirm('确认关闭？').then(async (_) => {  
-        console.log(AddUpload.value)
+        console.log(goodsAddForm.goodsImage)
         axios.post("/uploadRemove/food/" + goodsAddForm.goodsImage)
         axios.post("/uploadRemove/food/" + goodsEditForm.goodsImage)
         EDIT_DIALOG.value = false
