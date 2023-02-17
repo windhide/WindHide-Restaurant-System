@@ -13,6 +13,7 @@
         <module>employee-module</module>
         <module>abonement-module</module>
         <module>gateway-module</module>
+        <module>auth-module</module>
     </modules>
 
     <properties>
