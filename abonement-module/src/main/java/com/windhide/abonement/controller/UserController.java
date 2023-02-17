@@ -61,13 +61,18 @@ public class UserController {
     }
 
     @RequestMapping("remove/{userId}")
-    public T removeUserById(@PathVariable("userId") int userId){
-        return new T(StateCode.SUCCESS,userService.removeById(userId),TimeUtil.getNowTime());
+    public T removeUserById(@PathVariable("userId") int userId) {
+        return new T(StateCode.SUCCESS, userService.removeById(userId), TimeUtil.getNowTime());
     }
 
     @RequestMapping("insert")
     public T insertOrder(@RequestBody User user) {
-        return new T(StateCode.SUCCESS,userService.save(user), TimeUtil.getNowTime());
+        return new T(StateCode.SUCCESS, userService.save(user), TimeUtil.getNowTime());
+    }
+
+    @RequestMapping("userLogin")
+    public User queryUserByLogin(@RequestBody User user) {
+        return userService.getOne(new QueryWrapper<>(user));
     }
 
     /**

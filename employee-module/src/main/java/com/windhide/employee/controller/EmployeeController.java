@@ -1,5 +1,6 @@
 package com.windhide.employee.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.windhide.employee.pojo.Employee;
@@ -51,13 +52,18 @@ public class EmployeeController {
     }
 
     @RequestMapping("remove/{employeeId}")
-    public T removeEmployeeById(@PathVariable("employeeId") int employeeId){
-        return new T(StateCode.SUCCESS,employeeService.removeById(employeeId),TimeUtil.getNowTime());
+    public T removeEmployeeById(@PathVariable("employeeId") int employeeId) {
+        return new T(StateCode.SUCCESS, employeeService.removeById(employeeId), TimeUtil.getNowTime());
     }
 
     @RequestMapping("insert")
     public T insertOrder(@RequestBody Employee employee) {
-        return new T(StateCode.SUCCESS,employeeService.save(employee), TimeUtil.getNowTime());
+        return new T(StateCode.SUCCESS, employeeService.save(employee), TimeUtil.getNowTime());
+    }
+
+    @RequestMapping("employeeLogin")
+    public Employee queryEmployeeByLogin(@RequestBody Employee employee) {
+        return employeeService.getOne(new QueryWrapper<>(employee));
     }
 
     /**

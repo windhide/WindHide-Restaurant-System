@@ -3,6 +3,12 @@ server:
 spring:
   application:
     name: gateway-module # 服务名称
+  data:
+    redis:
+      database: 0
+      host: 127.0.0.1
+      port: 6379
+      password: 3302983
   cloud:
     nacos:
       discovery:
@@ -17,9 +23,13 @@ spring:
           uri: lb://employee-module
           predicates:
             - Path=/activity/**,/dictionaries/**,/employee/**,/employeeType/**,/goods/**,/goodsType/**,/incomeState/**,/uploadRemove/**,/upload/**
+        - id: auth-module
+          uri: lb://auth-module
+          predicates:
+            - Path=/auth/**
         - id: static-resources
           uri: lb://employee-module
           predicates:
-              - Path=/static/**
+            - Path=/static/**
           filters:
             - StripPrefix=1
