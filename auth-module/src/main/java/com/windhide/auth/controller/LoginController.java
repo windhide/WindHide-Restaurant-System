@@ -69,7 +69,10 @@ public class LoginController {
             loginResponse.setToken(token);
             loginResponse.setRefreshToken(refreshToken);
             loginResponse.setUserId(databaseUser.getUserId() + "");
-            loginResponse.setUsername(databaseUser.getUserName());
+            loginResponse.setUserName(databaseUser.getUserName());
+            loginResponse.setNickName(databaseUser.getUserNickname());
+            loginResponse.setIdentity("user");
+            loginResponse.setIdentityType(databaseUser.getUserLevel().getUserLevelName());
             return ResponseResult.success(loginResponse);
         }
 
@@ -112,7 +115,10 @@ public class LoginController {
             loginResponse.setToken(token);
             loginResponse.setRefreshToken(refreshToken);
             loginResponse.setUserId(databaseEmployee.getEmployeeId() + "");
-            loginResponse.setUsername(databaseEmployee.getEmployeeUsername());
+            loginResponse.setUserName(databaseEmployee.getEmployeeUsername());
+            loginResponse.setNickName(databaseEmployee.getEmployeeName());
+            loginResponse.setIdentity("employee");
+            loginResponse.setIdentityType(databaseEmployee.getEmployeeType().getEmployeeTypeName());
 
             return ResponseResult.success(loginResponse);
         }

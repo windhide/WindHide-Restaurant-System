@@ -1,4 +1,5 @@
-import {createRouter, createWebHistory, RouteRecordRaw} from 'vue-router'
+import { ElNotification } from 'element-plus'
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 
 export const routes: Array<RouteRecordRaw> = [
   {
@@ -139,7 +140,7 @@ export const routes: Array<RouteRecordRaw> = [
             path: "user",
             name: "用户管理",
             component: () => import("@/components/employee/user.vue"),
-            props:{
+            props: {
               icon: "User",
             }
           },
@@ -160,6 +161,41 @@ export const routes: Array<RouteRecordRaw> = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+})
+
+const filterPath = ["/employeeLogin","/userLogin","/"]
+
+router.beforeEach((to, from, next) => {
+  const userId = localStorage.getItem('userId')
+  const userName = localStorage.getItem('userName')
+  const nickName = localStorage.getItem('nickName')
+  const identity = localStorage.getItem('identity') // user、employee
+  const identityType = localStorage.getItem('identityType')
+  const token = localStorage.getItem('token')
+  
+  if(filterPath.indexOf(to.path) !== -1){
+    next();
+  }else if(token == "" || token == null){
+    ElNotification({ title: '没有登录！即将跳转！', type: 'warning' })
+    setTimeout(async function () {
+      if(to.path.indexOf("/employeeView") != -1){
+        await router.push("/employeeLogin")
+      }else{
+        await router.push("/userLogin")
+      }
+      await router.go(0)
+    }, 1000)
+  }
+  if (to.path.indexOf("/employee/") != -1) {
+    if (identity != "employee" && token != "") {
+      ElNotification({ title: '你不是管理员！,即将跳转！', type: 'warning' })
+      setTimeout(async function () {
+        await router.push("/")
+        await router.go(0)
+      }, 1000)
+    }
+  }
+  next()
 })
 
 export default router
