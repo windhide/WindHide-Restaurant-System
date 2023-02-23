@@ -46,6 +46,11 @@ public class TokenFilter implements GlobalFilter, Ordered {
         passUri.add("/user/userLogin");
         passUri.add("/auth/login/employee");
         passUri.add("/auth/login/user");
+        passUri.add("/user/insert"); // 放行注册
+        passUri.add("/upload/avatar"); // 放行上传
+        passUri.add("/static/food/"); //放行静态资源
+        passUri.add("/static/avatar/"); //放行静态资源
+
 
 
         //  检查白名单

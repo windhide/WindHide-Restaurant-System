@@ -72,7 +72,15 @@ public class UserController {
 
     @RequestMapping("userLogin")
     public User queryUserByLogin(@RequestBody User user) {
-        return userService.getOne(new QueryWrapper<>(user));
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_name",user.getUserName());
+        queryWrapper.eq("user_password",user.getUserPassword());
+        User databaseUser = userService.getOne(queryWrapper);
+        if(databaseUser!=null){
+            userLevelInit();
+            databaseUser = userLevelInit(databaseUser);
+        }
+        return databaseUser;
     }
 
     /**
