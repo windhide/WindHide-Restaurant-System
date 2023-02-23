@@ -156,6 +156,21 @@ export const routes: Array<RouteRecordRaw> = [
       }
     ]
   },
+  {
+    path:"/userLogin",
+    name:"用户登录",
+    component: () => import("@/views/userLogin.vue")
+  },
+  {
+    path:"/employeeLogin",
+    name:"后台登录",
+    component: () => import("@/views/employeeLogin.vue")
+  },
+  {
+    path:"/register",
+    name:"用户注册",
+    component: () => import("@/views/register.vue")
+  }
 ]
 
 const router = createRouter({
@@ -163,7 +178,7 @@ const router = createRouter({
   routes
 })
 
-const filterPath = ["/employeeLogin","/userLogin","/"]
+const filterPath = ["/employeeLogin","/userLogin","/","/register"]
 
 router.beforeEach((to, from, next) => {
   const userId = localStorage.getItem('userId')

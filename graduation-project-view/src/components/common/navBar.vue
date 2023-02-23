@@ -39,7 +39,6 @@ type Props = {
   navigationFatherName: string,
 }
 const prop = defineProps<Props>()
-console.log(prop.navigationFatherName)
 const NAVIGATION = getNavigation(prop.navigationFatherName)
 // 传参为一个/的时候，修复bug
 if (prop.navigationFatherName == "") {
