@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("shoppingCart")
@@ -24,15 +26,12 @@ public class ShoppingCartController {
     @Autowired
     ShoppingCartService shoppingCartService;
 
-    @RequestMapping("select")
-    public T selectAllShoppingCart(@RequestBody HashMap<String,Integer> hashMap){
-        Map<String,Object> dataMap = new HashMap<>();
-        //分页
-        PageInfo info = new PageInfo<>(PageHelper.startPage(hashMap.get("pageNum"),hashMap.get("pageSize")).getResult());
-        dataMap.put("data",shoppingCartService.list());
-        dataMap.put("pageInfo",info);
-        return new T(StateCode.SUCCESS,shoppingCartService.list(), TimeUtil.getNowTime());
-    }
+//    @RequestMapping("select")
+//    public T selectAllShoppingCart(){
+//        Map<String,Object> dataMap = new HashMap<>();
+//        dataMap.put("data",shoppingCartService.list());
+//        return new T(StateCode.SUCCESS,shoppingCartService.list(), TimeUtil.getNowTime());
+//    }
 
     @RequestMapping("select/{userId}")
     public T selectShoppingCartByUserId(@PathVariable Integer userId){
@@ -46,9 +45,11 @@ public class ShoppingCartController {
         return new T(StateCode.SUCCESS,shoppingCartService.updateById(shoppingCart),TimeUtil.getNowTime());
     }
 
-    @RequestMapping("remove/{shoppingCartId}")
-    public T removeShoppingCartById(@PathVariable("shoppingCartId") int shoppingCartId){
-        return new T(StateCode.SUCCESS,shoppingCartService.removeById(shoppingCartId),TimeUtil.getNowTime());
+    @RequestMapping("remove/{userId}")
+    public T removeShoppingCartById(@PathVariable("userId") int userId){
+        QueryWrapper<ShoppingCart> queryWrapper = new QueryWrapper();
+        queryWrapper.eq("user_id",userId);
+        return new T(StateCode.SUCCESS,shoppingCartService.remove(queryWrapper),TimeUtil.getNowTime());
     }
 
     @RequestMapping("insert")
