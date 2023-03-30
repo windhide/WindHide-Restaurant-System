@@ -3,6 +3,9 @@
     <NavBar navigationFatherName="employeeView" />
     <el-container>
       <el-header style="text-align: right; font-size: 12px">
+          <div style="position:absolute;line-height: 350%;font-size: 1.5em;">
+            饭店餐饮管理系统
+          </div>
         <div class="toolbar">
           <el-dropdown>
             <el-icon style="margin-right: 8px; margin-top: 1px">
@@ -14,7 +17,7 @@
               </el-dropdown-menu>
             </template>
           </el-dropdown>
-          <span v-if="loginName == ''"><a href="/userLogin">请先去登陆</a></span>
+          <span v-if="loginName == ''"><a href="/employeeLogin">请先去登陆</a></span>
           <span v-else>{{ "欢迎您" + loginName }}</span>
         </div>
       </el-header>
@@ -32,11 +35,11 @@ import store from '@/store/index'
 import router from '@/router';
 
 let loginName: any = ""
-if (localStorage.getItem("Aunother") == undefined) loginName = ""
-else loginName = localStorage.getItem("Aunother")
+if (localStorage.getItem("nickName") == undefined) loginName = ""
+else loginName = localStorage.getItem("nickName")
 function logOut() {
   store.commit('logOut')
-  router.push("/userLogin")
+  router.push("/employeeLogin")
 }
 </script>
 

@@ -157,18 +157,18 @@ export const routes: Array<RouteRecordRaw> = [
     ]
   },
   {
-    path:"/userLogin",
-    name:"用户登录",
+    path: "/userLogin",
+    name: "用户登录",
     component: () => import("@/views/userLogin.vue")
   },
   {
-    path:"/employeeLogin",
-    name:"后台登录",
+    path: "/employeeLogin",
+    name: "后台登录",
     component: () => import("@/views/employeeLogin.vue")
   },
   {
-    path:"/register",
-    name:"用户注册",
+    path: "/register",
+    name: "用户注册",
     component: () => import("@/views/register.vue")
   }
 ]
@@ -178,7 +178,7 @@ const router = createRouter({
   routes
 })
 
-const filterPath = ["/employeeLogin","/userLogin","/","/register"]
+const filterPath = ["/employeeLogin", "/userLogin", "/register"]
 
 router.beforeEach((to, from, next) => {
   const userId = localStorage.getItem('userId')
@@ -188,14 +188,14 @@ router.beforeEach((to, from, next) => {
   const identityType = localStorage.getItem('identityType')
   const token = localStorage.getItem('token')
   
-  if(filterPath.indexOf(to.path) !== -1){
+  if (filterPath.indexOf(to.path) !== -1) {
     next();
-  }else if(token == "" || token == null){
+  } else if (token === "" || token === null || userName === "" || nickName === "") {
     ElNotification({ title: '没有登录！即将跳转！', type: 'warning' })
     setTimeout(async function () {
-      if(to.path.indexOf("/employeeView") != -1){
+      if (to.path.indexOf("/employeeView") != -1) {
         await router.push("/employeeLogin")
-      }else{
+      } else {
         await router.push("/userLogin")
       }
       await router.go(0)

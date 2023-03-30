@@ -1,10 +1,12 @@
+import router from '@/router';
+import { ElNotification } from 'element-plus';
 import { createStore } from 'vuex'
 
 export default createStore({
   state: {
     Authorization: localStorage.getItem("Authorization") ? localStorage.getItem("Authorization") : '',
     refreshToken: localStorage.getItem("refreshToken") ? localStorage.getItem("refreshToken") : '',
-    token: localStorage.getItem("refreshToken") ? localStorage.getItem("refreshToken") : '',
+    token: localStorage.getItem("token") ? localStorage.getItem("token") : '',
     userId: '',
     userName: '',
     nickName: '',
@@ -27,7 +29,7 @@ export default createStore({
       localStorage.setItem('identity', user.identity)
       localStorage.setItem('identityType', user.identityType)
     },
-    commonSignOut(state) {
+    commonSignOut(state, pathGo) {
       state.Authorization = "";
       state.refreshToken = "";
       state.token = "";
@@ -39,6 +41,16 @@ export default createStore({
       localStorage.setItem('nickName', "")
       localStorage.setItem('identity', "")
       localStorage.setItem('identityType', "")
+
+      ElNotification({ title: '没有登录！即将跳转！', type: 'warning' })
+      setTimeout(async function () {
+        if (pathGo === "employee") {
+          await router.push("/employeeLogin")
+        } else if(pathGo === "user") {
+          await router.push("/userLogin")
+        }
+        await router.go(0)
+      }, 1000)
     }
   },
   actions: {

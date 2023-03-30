@@ -82,6 +82,7 @@
 <script lang="ts" setup>
 import axios from '@/apis/axiosApis';
 import { CLEAR_FORM, CURRENCY_OPERATION_API, CURRENCY_REQUEST } from '@/apis/normalCrudApi';
+import store from '@/store';
 import { ElMessageBox, UploadInstance } from 'element-plus';
 import { reactive, ref } from 'vue';
 const URL = "user"
@@ -122,6 +123,9 @@ async function EDIT(url: String, data: any, operationId: Number) {
 }
 function RELOAD() {
     axios.post("/user/select/" + localStorage.getItem("userId")).then(res => {
+        if(res.data.code === 2002){
+            store.commit("commonSignOut",{pathGo:"user"})
+        }
         user.userId = res.data.responeData[0].userId
         user.userGender = res.data.responeData[0].userGender
         user.userImage = res.data.responeData[0].userImage

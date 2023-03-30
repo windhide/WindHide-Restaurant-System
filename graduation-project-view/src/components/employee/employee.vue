@@ -8,7 +8,7 @@
                     <img :src="'/api/static/avatar/' + scope.row.employeeImage" width="100" />
                 </template>
             </el-table-column>
-            <el-table-column align="center" prop="employeeUsername" label="员工用户名" width="150" />
+            <!-- <el-table-column align="center" prop="employeeUsername" label="员工用户名" width="150" /> -->
             <el-table-column align="center" prop="employeeSalary" label="员工工资(元/月)" width="150" />
             <el-table-column align="center" prop="employeeType.employeeTypeName" label="员工职位" width="200" />
             <el-table-column align="center" prop="createTime" label="创建时间" width="300" />
