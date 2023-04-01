@@ -1,8 +1,7 @@
 package com.windhide.abonement.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.windhide.abonement.pojo.ShoppingCart;
 import com.windhide.abonement.service.ShoppingCartService;
 import com.windhide.restaurant.pojo.T;
@@ -13,11 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 
 @RestController
 @RequestMapping("shoppingCart")
@@ -41,8 +35,11 @@ public class ShoppingCartController {
     }
 
     @RequestMapping("update")
-    public T updateShoppingCartById(@RequestBody ShoppingCart shoppingCart){
-        return new T(StateCode.SUCCESS,shoppingCartService.updateById(shoppingCart),TimeUtil.getNowTime());
+    public T updateShoppingCartById(@RequestBody ShoppingCart shoppingCart) {
+        shoppingCart.setShoppingCartDataJson(
+                JSON.toJSONString(JSON.parseArray(shoppingCart.getShoppingCartDataJson()))
+        );
+        return new T(StateCode.SUCCESS, shoppingCartService.updateById(shoppingCart), TimeUtil.getNowTime());
     }
 
     @RequestMapping("remove/{userId}")
@@ -54,7 +51,10 @@ public class ShoppingCartController {
 
     @RequestMapping("insert")
     public T insertOrder(@RequestBody ShoppingCart shoppingCart) {
-        return new T(StateCode.SUCCESS,shoppingCartService.save(shoppingCart), TimeUtil.getNowTime());
+        shoppingCart.setShoppingCartDataJson(
+                JSON.toJSONString(JSON.parseArray(shoppingCart.getShoppingCartDataJson()))
+        );
+        return new T(StateCode.SUCCESS, shoppingCartService.save(shoppingCart), TimeUtil.getNowTime());
     }
 
 }

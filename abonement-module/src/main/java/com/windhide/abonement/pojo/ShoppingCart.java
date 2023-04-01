@@ -1,7 +1,6 @@
 package com.windhide.abonement.pojo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -26,15 +25,15 @@ public class ShoppingCart implements Serializable {
     /**
      * 购物车的json内容
      */
-    private Object shoppingCartDataJson;
+    private String shoppingCartDataJson;
 
     /**
      * 用户id
      */
     private Integer userId;
 
-    @TableField(exist = false)
-    private User user;
+//    @TableField(exist = false)
+//    private User user;
 
     /**
      * 创建时间

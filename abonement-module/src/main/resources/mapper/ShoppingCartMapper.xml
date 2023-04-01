@@ -6,7 +6,7 @@
 
     <resultMap id="BaseResultMap" type="com.windhide.abonement.pojo.ShoppingCart">
             <id property="shoppingCartId" column="shopping_cart_id" jdbcType="INTEGER"/>
-            <result property="shoppingCartDataJson" column="shopping_cart_data_json" jdbcType="OTHER"/>
+            <result property="shoppingCartDataJson" column="shopping_cart_data_json" jdbcType="VARCHAR"/>
             <result property="userId" column="user_id" jdbcType="INTEGER"/>
             <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
     </resultMap>

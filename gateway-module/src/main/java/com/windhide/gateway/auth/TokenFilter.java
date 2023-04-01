@@ -57,6 +57,9 @@ public class TokenFilter implements GlobalFilter, Ordered {
         if (passUri.contains(uri)) {
             log.info("========== 放行 ========== > url -> {}", uri);
             return chain.filter(exchange);
+        } else if (uri.contains("/static/")) {
+            log.info("========== 放行 ========== > url -> {}", uri);
+            return chain.filter(exchange);
         } else {
             log.info("xxxxxxxxxx 拦截 xxxxxxxxxx > url -> {}", uri);
         }
