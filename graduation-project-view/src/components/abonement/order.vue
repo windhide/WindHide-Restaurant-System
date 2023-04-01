@@ -44,11 +44,10 @@ import { reactive, ref } from 'vue'
 import { ShoppingCart } from '@element-plus/icons-vue'
 import {
     CURRENCY_SELECT,
-    GET_NOW_DATE_FORMATE
 } from "@/apis/normalCrudApi"
 import { ElMessage } from 'element-plus';
-import { ADD_ITEM_TO_SHOPINGCAR, SELECT_SHOPINGCAR } from '@/apis/shoppingCartApis';
-import { tr } from 'element-plus/es/locale';
+import { ADD_ITEM_TO_SHOPINGCAR, SELECT_SHOPINGCAR, CHANGE_SHOPING_CAR_ITEM_API } from '@/apis/shoppingCartApis';
+import { Goods, shoppingCart } from '@/apis/dataJson';
 
 let addShopCarDialog = ref(false)
 let select_num = ref(1)
@@ -60,7 +59,7 @@ let pageSize = ref(1); // 给初始值
 let totals = ref(1); // 给初始值
 let nowPage = ref(1);
 let goodsTypeList: any = reactive([])
-let dataCache: any = reactive({})
+let dataCache: Goods = new Goods()
 
 
 CURRENCY_SELECT("goodsType", 1, 100)?.then(res => {
@@ -78,50 +77,61 @@ function RELOAD() {
 }
 
 function ADD_SHOPCAR(data: any) {
-    dataCache = reactive({})
-    dataCache.count = 50
-    dataCache.drugs = data
-    dataCache.createTime = GET_NOW_DATE_FORMATE()
+    dataCache = new Goods()
+    dataCache.goodsId = data.goodsId
+    dataCache.goodsDiscount = data.goodsDiscount
+    dataCache.goodsImage = data.goodsImage
+    dataCache.goodsName = data.goodsName
+    dataCache.goodsPrice = data.goodsPrice
+    dataCache.goodsType = data.goodsType
     addShopCarDialog.value = true
 }
 
 function stateShop(stateCode: number) {
     if (stateCode == 1) {
         dataCache.count = select_num.value;
-
-        SELECT_SHOPINGCAR().then((res: any)=>{
-            if(res.data.responeData.length === 0){
+        dataCache.total = (dataCache.goodsPrice * dataCache.goodsDiscount) * dataCache.count
+        SELECT_SHOPINGCAR().then(async (res: any) => {
+            if (res.data.responeData.length === 0) {
                 // 如果为空直接添加
-                ADD_ITEM_TO_SHOPINGCAR(dataCache)?.then((res: any) => {
-                    if (res) addShopCarDialog.value = false
+                let addObject = new shoppingCart()
+                let list: Goods[] = [dataCache]
+                await (addObject.userId = parseInt(localStorage.getItem("userId") + ""))
+                await (addObject.shoppingCartDataJson = JSON.stringify(list))
+                ADD_ITEM_TO_SHOPINGCAR(addObject)?.then((res: any) => {
+                    console.log(res)
+                    addShopCarDialog.value = false
                 })
-                console.log("没数据")
-            }else{
-                // 有数据则基于原版去改
-                console.log("有数据")
+            } else {
+                let list: Goods[] = JSON.parse(res.data.responeData[0].shoppingCartDataJson)
+                let isHave = false;
+                list.forEach(haveGoods => {
+                    if (haveGoods.goodsId == dataCache.goodsId) {
+                        haveGoods.count += dataCache.count
+                        haveGoods.total += dataCache.total
+                        isHave = true
+                    }
+                });
+
+                if (!isHave) {
+                    list.push(dataCache)
+                }
+                let addObject = new shoppingCart()
+                await (addObject.userId = parseInt(localStorage.getItem("userId") + ""))
+                await (addObject.shoppingCartDataJson = JSON.stringify(list))
+                await (addObject.shoppingCartId = res.data.responeData[0].shoppingCartId)
+                CHANGE_SHOPING_CAR_ITEM_API(addObject).then((res: any) => {
+                    console.log(res)
+                    addShopCarDialog.value = false
+                })
             }
-            
         })
     } else {
         addShopCarDialog.value = false
         ElMessage({ type: 'warning', message: '取消操作', })
     }
+    select_num.value = 1
 }
-
-
-
-function handleSizeChange(val: number) {
-    setTimeout(() => {
-        CURRENCY_SELECT(URL, val, 30).then(res => {
-            goodsList.length = 0
-            nowPage.value = val
-            pageSize.value = res.size
-            totals.value = res.total
-            goodsList.push(...res.data)
-        })
-    }, 100);
-};
-
 RELOAD();
 </script>
 

@@ -4,8 +4,7 @@ import { ElMessage } from "element-plus";
 import { GET_NOW_DATE_FORMATE } from "@/apis/normalCrudApi";
 
 export function ADD_ITEM_TO_SHOPINGCAR(data:any){
-    let userId = localStorage.getItem("userId")
-    return axios.post("shoppingCart/insert",{"shoppingCart": data,"userId": userId}).then(res =>{
+    return axios.post("shoppingCart/insert",data).then(res =>{
         if(res.data){
             ElMessage({ type: 'success', message: '成功添加至购物车！', })
             return true
@@ -35,8 +34,7 @@ export function SELECT_SHOPINGCAR(){
 }
 
 export function CHANGE_SHOPING_CAR_ITEM_API(originalData: any){
-    let userId = localStorage.getItem("userId")
-    return axios.post("shoppingCart/update",{"userId":userId,"shoppingCartDataJson":originalData}).then(res =>{
+    return axios.post("shoppingCart/update",originalData).then(res =>{
         if(res.data){
             ElMessage({ type: 'success', message: '已经完成变更', })
             return true
