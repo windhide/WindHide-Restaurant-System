@@ -175,6 +175,7 @@ function cancelDialog(addOrEdit: String) {
         userEditForm = CLEAR_FORM(userEditForm)
         EditNowImage.value = ""
     }
+    RELOAD()
 }
 RELOAD()
 </script>
