@@ -39,9 +39,9 @@ export const routes: Array<RouteRecordRaw> = [
             }
           },
           {
-            path: "order",
+            path: "historyOrder",
             name: "历史订单",
-            component: () => import("@/components/abonement/order.vue"),
+            component: () => import("@/components/abonement/historyOrder.vue"),
             props: {
               icon: 'Checked',
             }

@@ -16,3 +16,10 @@ export class shoppingCart{
     orderPrice: number | null | undefined
     userId: number | null | undefined
 }
+
+export class order{
+    orderId: any | null | undefined
+    orderDataJson: any | null | undefined
+    orderPrice: number | null | undefined
+    userId: number | null | undefined
+}
