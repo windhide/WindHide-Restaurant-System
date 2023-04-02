@@ -1,6 +1,7 @@
 package com.windhide.abonement.pojo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -35,6 +36,10 @@ public class OrderDetail implements Serializable {
      * 用户id
      */
     private Integer userId;
+
+
+    @TableField(exist = false)
+    private User user;
 
     /**
      * 创建时间
