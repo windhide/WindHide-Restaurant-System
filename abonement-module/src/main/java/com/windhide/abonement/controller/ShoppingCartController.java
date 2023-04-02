@@ -1,6 +1,5 @@
 package com.windhide.abonement.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.windhide.abonement.pojo.ShoppingCart;
 import com.windhide.abonement.service.ShoppingCartService;
@@ -36,9 +35,6 @@ public class ShoppingCartController {
 
     @RequestMapping("update")
     public T updateShoppingCartById(@RequestBody ShoppingCart shoppingCart) {
-        shoppingCart.setShoppingCartDataJson(
-                JSON.toJSONString(JSON.parseArray(shoppingCart.getShoppingCartDataJson()))
-        );
         return new T(StateCode.SUCCESS, shoppingCartService.updateById(shoppingCart), TimeUtil.getNowTime());
     }
 
@@ -51,9 +47,6 @@ public class ShoppingCartController {
 
     @RequestMapping("insert")
     public T insertOrder(@RequestBody ShoppingCart shoppingCart) {
-        shoppingCart.setShoppingCartDataJson(
-                JSON.toJSONString(JSON.parseArray(shoppingCart.getShoppingCartDataJson()))
-        );
         return new T(StateCode.SUCCESS, shoppingCartService.save(shoppingCart), TimeUtil.getNowTime());
     }
 

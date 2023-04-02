@@ -18,7 +18,7 @@ spring:
         - id: abonement-module
           uri: lb://abonement-module
           predicates:
-            - Path=/order/**,/shoppingCart/**,/user/**,/userLevel/**
+            - Path=/orderDetail/**,/shoppingCart/**,/user/**,/userLevel/**
         - id: employee-module
           uri: lb://employee-module
           predicates:
