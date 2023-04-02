@@ -63,7 +63,8 @@ public class EmployeeController {
 
     @RequestMapping("employeeLogin")
     public Employee queryEmployeeByLogin(@RequestBody Employee employee) {
-        return employeeService.getOne(new QueryWrapper<>(employee));
+        employeeTypeInit();
+        return employeeTypeInit(employeeService.getOne(new QueryWrapper<>(employee)));
     }
 
     /**
