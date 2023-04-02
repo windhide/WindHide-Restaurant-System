@@ -8,6 +8,11 @@
         <el-table-column prop="goodsName" label="菜名" width="100" />
         <el-table-column prop="count" label="数量" width="100" />
         <el-table-column prop="goodsPrice" label="单价" width="100" />
+        <el-table-column prop="goodsDiscount" label="折扣" width="100">
+            <template #default="scope">
+                {{ parseFloat(scope.row.goodsDiscount) == 1 ? "不打折":parseFloat(scope.row.goodsDiscount)*100+"%折" }}
+            </template>
+        </el-table-column>
         <el-table-column prop="total" label="价格" />
         <el-table-column label="操作">
             <template #default="scope">
@@ -31,7 +36,7 @@
                     <el-button type="primary" round>清空购物车</el-button>
                 </template>
             </el-popconfirm>
-            <el-button type="primary" round v-if="shopingCarList.length != 0">结账！</el-button>
+            <el-button type="primary" round v-if="shopingCarList.length != 0" @click="PAY">结账！</el-button>
         </el-card>
     </el-space>
 
@@ -56,10 +61,10 @@
 <script lang="ts" setup>
 import { reactive, ref } from 'vue';
 import { InfoFilled } from '@element-plus/icons-vue'
-import { ADD_ITEM_TO_SHOPINGCAR, CHANGE_SHOPING_CAR_ITEM_API, SELECT_SHOPINGCAR } from '@/apis/shoppingCartApis';
-import { ElMessage, rowProps } from 'element-plus';
+import { CHANGE_SHOPING_CAR_ITEM_API, SELECT_SHOPINGCAR } from '@/apis/shoppingCartApis';
+import { ElMessage } from 'element-plus';
 import axios from "@/apis/axiosApis";
-import { Goods, shoppingCart } from '@/apis/dataJson';
+import { order, shoppingCart } from '@/apis/dataJson';
 
 let shopingCarList: any = reactive([]);
 let changeShopCarDialog = ref(false);
@@ -145,11 +150,32 @@ const clearShopingCar = () => {
     })
 }
 
-// function PAY(){
-//   PAY_CAR(select_val)
-//   setTimeout(reload, 500);
-// }
+async function PAY(){
+    let cacheShopingCarList:any = [...shopingCarList]
+    let orderPrice = 0;
+    shopingCarList.forEach((Goods: any) => {
+        orderPrice+= Goods.total
+    });
+    let insertOrderData = new order()
+    await (insertOrderData.orderDataJson = JSON.stringify(cacheShopingCarList))
+    await (insertOrderData.orderPrice = parseFloat(orderPrice.toFixed(2)))
+    await (insertOrderData.userId = parseInt(localStorage.getItem("userId") + ""))
+    axios.post("/orderDetail/insert",insertOrderData).then(res=>{
+        if(res?.data?.status != 500){
+            ElMessage({ type: 'success', message: '支付完成' })
+            clearShopingCar()
+            setTimeout(reload, 500);
+        }
+        console.log(res)
+    })
+}
+
+const Discount = (number: any) =>{
+
+}
+
 reload()
 </script>
 
-<style></style>
+<style>
+</style>
