@@ -38,7 +38,7 @@ let loginName: any = ""
 if (localStorage.getItem("nickName") == undefined) loginName = ""
 else loginName = localStorage.getItem("nickName")
 function logOut() {
-  store.commit('logOut')
+  store.commit('commonSignOut')
   router.push("/employeeLogin")
 }
 </script>
