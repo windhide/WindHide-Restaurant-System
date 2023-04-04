@@ -1,6 +1,5 @@
 package com.windhide.employee.controller;
 
-import com.github.pagehelper.PageHelper;
 import com.windhide.employee.pojo.IncomeState;
 import com.windhide.employee.service.IncomeStateService;
 import com.windhide.restaurant.pojo.T;
@@ -20,11 +19,8 @@ public class IncomeStateController {
     IncomeStateService incomeStateService;
 
     @RequestMapping("select")
-    public T selectAllIncomeState(@RequestBody int pageNum, @RequestBody int pageSize){
-        if(pageNum > 0){
-            PageHelper.startPage(pageNum,pageSize);
-        }
-        return new T(StateCode.SUCCESS,incomeStateService.list(), TimeUtil.getNowTime());
+    public T selectAllIncomeState() {
+        return new T(StateCode.SUCCESS, incomeStateService.list(), TimeUtil.getNowTime());
     }
 
     @RequestMapping("update")
