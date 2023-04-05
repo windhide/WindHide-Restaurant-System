@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.windhide.abonement.mapper.DeskMapper">
+
+    <resultMap id="BaseResultMap" type="com.windhide.abonement.pojo.Desk">
+            <id property="desk_id" column="desk_id" jdbcType="INTEGER"/>
+            <result property="desk_type" column="desk_type" jdbcType="INTEGER"/>
+            <result property="is_use" column="is_use" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        desk_id,desk_type,is_use
+    </sql>
+</mapper>
