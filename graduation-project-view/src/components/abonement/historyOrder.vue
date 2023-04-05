@@ -31,6 +31,8 @@
             </el-table-column>
         </el-table>
         总共: {{total.toFixed(2)}}元
+        <br>
+        坐在: {{ deskFind(cacheDeskData.value) }}
     </el-drawer>
 
 </template>
@@ -43,7 +45,13 @@ import axios from '@/apis/axiosApis';
 let historyOrderList: any = reactive([])
 let drawer = ref(false)
 let inObject: any = reactive([])
+let cacheDeskData: any = reactive({})
 let total: any = ref(0)
+let allDesk: any = reactive([])
+
+axios.post("desk/select").then(res => {
+    allDesk.push(...res.data.responeData)
+})
 
 function RELOAD() {
     setTimeout((_: any) => {
@@ -55,12 +63,32 @@ function RELOAD() {
 }
 const tableDrugsDetail = (row: any) => {
     inObject = JSON.parse(row.orderDataJson)
+    cacheDeskData.value = row
     total.value = 0
     inObject.forEach((obj:any) => {
         total.value += obj.total
     });
     drawer.value = true;
 }
+
+const deskFind = (desk: any)=>{
+    let cacheDesk:any = null
+    allDesk.forEach((indesk: any) => {
+        if(indesk.deskId == desk.deskId){
+            cacheDesk = indesk
+        }
+    });
+    switch (cacheDesk.deskType) {
+        case 1:
+            return "小桌" + cacheDesk.deskId +"号"
+        case 2:
+            return "中桌" + cacheDesk.deskId +"号"
+        case 3:
+            return "大桌" + cacheDesk.deskId +"号"
+                                        
+    }
+}
+
 RELOAD()
 
 </script>
