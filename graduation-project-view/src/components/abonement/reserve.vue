@@ -52,7 +52,6 @@
 <script lang="ts" setup>
 import axios from "@/apis/axiosApis";
 import { ElMessage } from "element-plus";
-import { fa, tr } from "element-plus/es/locale";
 import { reactive, ref, watch } from "vue";
 let smallDesk: any = reactive([])
 let mediumDesk: any = reactive([])
