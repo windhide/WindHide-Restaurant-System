@@ -37,6 +37,10 @@ public class OrderDetail implements Serializable {
      */
     private Integer userId;
 
+    /**
+     * 餐桌id
+     */
+    private Integer deskId;
 
     @TableField(exist = false)
     private User user;

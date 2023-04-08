@@ -1,9 +1,8 @@
 package com.windhide.abonement.controller;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import com.windhide.abonement.pojo.UserLevel;
-import com.windhide.abonement.service.UserLevelService;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.windhide.abonement.pojo.Desk;
+import com.windhide.abonement.service.DeskService;
 import com.windhide.restaurant.pojo.T;
 import com.windhide.restaurant.util.StateCode;
 import com.windhide.restaurant.util.TimeUtil;
@@ -13,39 +12,38 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
-import java.util.Map;
-
 @RestController
-@RequestMapping("userLevel")
-public class UserLevelController {
+@RequestMapping("desk")
+public class DeskController {
 
     @Autowired
-    UserLevelService userLevelService;
+    DeskService DeskService;
 
     @RequestMapping("select")
-    public T selectAllUserLevel(@RequestBody HashMap<String,Integer> hashMap){
-        Map<String,Object> dataMap = new HashMap<>();
-        //分页
-        PageInfo info = new PageInfo<>(PageHelper.startPage(hashMap.get("pageNum"),hashMap.get("pageSize")).getResult());
-        dataMap.put("data",userLevelService.list());
-        dataMap.put("pageInfo",info);
-        return new T(StateCode.SUCCESS,userLevelService.list(), TimeUtil.getNowTime());
+    public T selectAllDesk() {
+        return new T(StateCode.SUCCESS, DeskService.list(), TimeUtil.getNowTime());
+    }
+
+    @RequestMapping("select/{deskId}")
+    public T selectAllDesk(@PathVariable("deskId") int deskId) {
+        QueryWrapper<Desk> queryWrapper = new QueryWrapper();
+        queryWrapper.eq("desk_id", deskId);
+        return new T(StateCode.SUCCESS, DeskService.list(queryWrapper), TimeUtil.getNowTime());
     }
 
     @RequestMapping("update")
-    public T updateUserLevelById(@RequestBody UserLevel userLevel){
-        return new T(StateCode.SUCCESS,userLevelService.updateById(userLevel),TimeUtil.getNowTime());
+    public T updateDeskById(@RequestBody Desk Desk) {
+        return new T(StateCode.SUCCESS, DeskService.updateById(Desk), TimeUtil.getNowTime());
     }
 
-    @RequestMapping("remove/{userLevelId}")
-    public T removeUserLevelById(@PathVariable("userLevelId") int userLevelId){
-        return new T(StateCode.SUCCESS,userLevelService.removeById(userLevelId),TimeUtil.getNowTime());
+    @RequestMapping("remove/{deksId}")
+    public T removeDeskById(@PathVariable("deskId") int deskId) {
+        return new T(StateCode.SUCCESS, DeskService.removeById(deskId), TimeUtil.getNowTime());
     }
 
     @RequestMapping("insert")
-    public T insertOrder(@RequestBody UserLevel userLevel) {
-        return new T(StateCode.SUCCESS,userLevelService.save(userLevel), TimeUtil.getNowTime());
+    public T insertOrder(@RequestBody Desk desk) {
+        return new T(StateCode.SUCCESS, DeskService.save(desk), TimeUtil.getNowTime());
     }
 
 }

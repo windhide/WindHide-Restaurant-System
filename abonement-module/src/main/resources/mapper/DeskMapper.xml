@@ -5,9 +5,9 @@
 <mapper namespace="com.windhide.abonement.mapper.DeskMapper">
 
     <resultMap id="BaseResultMap" type="com.windhide.abonement.pojo.Desk">
-            <id property="desk_id" column="desk_id" jdbcType="INTEGER"/>
-            <result property="desk_type" column="desk_type" jdbcType="INTEGER"/>
-            <result property="is_use" column="is_use" jdbcType="INTEGER"/>
+        <id property="deskId" column="desk_id" jdbcType="INTEGER"/>
+        <result property="deskType" column="desk_type" jdbcType="INTEGER"/>
+        <result property="isUse" column="is_use" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">
