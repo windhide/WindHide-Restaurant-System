@@ -1,5 +1,6 @@
-import {ElMessage, ElMessageBox} from "element-plus"
+import {ElMessage, ElMessageBox, ElNotification} from "element-plus"
 import axios from "@/apis/axiosApis"
+import router from "@/router"
 
 class Operation {
     opreationUrl = ""
@@ -9,6 +10,17 @@ class Operation {
 
 export function CURRENCY_SELECT(url: String, pageNum: Number, pageSize: Number) {
     return axios.post(url + "/select",{pageNum: pageNum, pageSize: pageSize}).then((res: any) => {
+        if(res.data?.code == 2002){
+            ElNotification({ title: '没有登录！即将跳转！', type: 'warning' })
+            console.log("CURRENCY_SELECT")
+            let url = window.location.host
+            if (url.indexOf("/employeeView") != -1) {
+                router.push("/employeeLogin")
+            } else {
+                router.push("/abonementLogin")
+            }
+            return
+        }
         if (res.data.state != "SUCCESS") {
             setTimeout(() => {
                 ElMessage({ type: 'error', message: '数据请求出错！', })
