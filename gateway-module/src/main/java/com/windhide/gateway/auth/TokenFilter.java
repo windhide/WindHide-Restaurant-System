@@ -60,6 +60,9 @@ public class TokenFilter implements GlobalFilter, Ordered {
         } else if (uri.contains("/static/")) {
             log.info("========== 放行 ========== > url -> {}", uri);
             return chain.filter(exchange);
+        } else if (uri.contains("/upload/")) {
+            log.info("========== 放行 ========== > url -> {}", uri);
+            return chain.filter(exchange);
         } else {
             log.info("xxxxxxxxxx 拦截 xxxxxxxxxx > url -> {}", uri);
         }
